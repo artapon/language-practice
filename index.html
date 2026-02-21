@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐼 小熊学汉字 · Chinese for Kids!</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky:    #e0f4ff;
+  --pink:   #ff6eb4;
+  --yellow: #ffd94a;
+  --green:  #4ecb6e;
+  --blue:   #4ab3f4;
+  --orange: #ff8c42;
+  --purple: #b388ff;
+  --red:    #ff5252;
+  --white:  #ffffff;
+  --ink:    #2d2d6b;
+  --soft:   #f0f8ff;
+  --border-r: 18px;
+  --shadow-fun: 0 6px 0 rgba(0,0,0,0.12);
+  --shadow-card: 0 8px 24px rgba(100,100,200,0.13);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: var(--sky);
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(255,110,180,0.18) 0%, transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(74,179,244,0.2) 0%, transparent 30%),
+    radial-gradient(circle at 80% 85%, rgba(78,203,110,0.15) 0%, transparent 30%),
+    radial-gradient(circle at 20% 80%, rgba(255,213,74,0.2) 0%, transparent 30%);
+  font-family: 'Nunito', sans-serif;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* floating stars background */
+body::before {
+  content: '⭐ 🌟 ✨ ⭐ 🌟 ✨ ⭐ 🌟';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  font-size: 1.2rem;
+  letter-spacing: 4rem;
+  opacity: 0.07;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #ff6eb4 0%, #ff8c42 50%, #ffd94a 100%);
+  flex-shrink: 0;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.topbar::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 0; right: 0;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 0 Q10 8 20 0 Q30 8 40 0' fill='none' stroke='%23ff6eb4' stroke-width='2'/%3E%3C/svg%3E") repeat-x;
+  opacity: 0.4;
+}
+
+.topbar h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 3px 0 rgba(0,0,0,0.15);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.topbar h1 .emoji { font-size: 1.5rem; margin-right: 0.2rem; }
+.topbar h1 span { color: #fff9c4; }
+
+.topbar-controls {
+  display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;
+}
+
+.topbar select {
+  background: rgba(255,255,255,0.9);
+  border: 3px solid rgba(255,255,255,0.6);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+
+.btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.35rem 0.8rem;
+  border-radius: 30px;
+  border: 3px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.25);
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+.btn:hover { background: rgba(255,255,255,0.45); transform: translateY(-1px); }
+.btn:active { transform: translateY(2px); box-shadow: none; }
+.btn.red { background: var(--red); border-color: #ff8a80; }
+.btn.red:hover { background: #ff6e6e; }
+
+.brush-wrap {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.78rem; color: white; font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  border-radius: 30px; padding: 0.2rem 0.6rem;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+input[type=range] { width: 60px; accent-color: white; }
+.progress-txt {
+  font-size: 0.78rem; color: white; font-weight: 800;
+  background: rgba(255,255,255,0.25);
+  padding: 0.2rem 0.7rem; border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── LAYOUT ── */
+.app { display: flex; flex: 1; overflow: hidden; }
+
+/* ── LEFT SIDEBAR ── */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 4px solid #ffe0f0;
+  box-shadow: 4px 0 12px rgba(255,110,180,0.08);
+}
+
+.sidebar-header {
+  background: linear-gradient(135deg, #b388ff, #4ab3f4);
+  padding: 0.6rem 0.7rem 0.5rem;
+  color: white;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.sidebar-search {
+  padding: 0.5rem;
+  background: #f8f0ff;
+  border-bottom: 3px solid #ede0ff;
+}
+.sidebar-search input {
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border: 3px solid #c9a8ff;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+.sidebar-search input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(179,136,255,0.2); }
+
+.char-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-content: flex-start;
+  background: #fdfaff;
+}
+.char-grid::-webkit-scrollbar { width: 6px; }
+.char-grid::-webkit-scrollbar-thumb { background: #c9a8ff; border-radius: 10px; }
+.char-grid::-webkit-scrollbar-track { background: #f0e8ff; }
+
+.cpill {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid #e8d5ff;
+  border-radius: 12px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.15s;
+  position: relative;
+  box-shadow: 0 3px 0 rgba(179,136,255,0.2);
+  color: var(--ink);
+}
+.cpill:hover {
+  border-color: var(--pink);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 0 rgba(255,110,180,0.25);
+  background: #fff0f8;
+}
+.cpill.active {
+  background: linear-gradient(135deg, var(--pink), var(--orange));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 0 rgba(255,110,180,0.4);
+  transform: translateY(-1px);
+}
+.cpill.done::after {
+  content: '⭐';
+  position: absolute;
+  bottom: -4px; right: -4px;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+.cpill.active.done::after { filter: brightness(1.5); }
+
+/* ── CENTER ── */
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0.8rem 2rem;
+  overflow: auto;
+}
+
+.practice-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── REFERENCE BOX ── */
+.ref-box {
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+}
+
+.ref-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  border: 3px solid #e8d5ff;
+  box-shadow: 0 3px 0 rgba(179,136,255,0.2);
+}
+
+.ref-char {
+  min-width: 160px; height: 160px;
+  max-width: 400px;
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--pink), var(--yellow), var(--green), var(--blue)) border-box;
+  border-radius: 24px;
+  box-shadow: var(--shadow-card), 0 6px 0 rgba(255,110,180,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 110px;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 4px 10px;
+  transition: transform 0.2s;
+}
+.ref-char:hover { transform: scale(1.03) rotate(-1deg); }
+.ref-char::before, .ref-char::after {
+  content: ''; position: absolute;
+  background: rgba(179,136,255,0.12);
+}
+.ref-char::before { width: 100%; height: 1px; top: 50%; }
+.ref-char::after { height: 100%; width: 1px; left: 50%; }
+
+.ref-info { text-align: center; }
+.ref-pinyin {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--pink);
+  letter-spacing: 0.05em;
+}
+.ref-meaning {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #7a7aaa;
+  margin-top: 0.2rem;
+  max-width: 180px;
+  background: white;
+  border-radius: 12px;
+  padding: 0.2rem 0.6rem;
+  border: 2px solid #e8f4ff;
+}
+
+.ref-nav { display: flex; gap: 0.5rem; margin-top: 0.2rem; }
+.ref-nav button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  color: white;
+}
+.ref-nav button:first-child  { background: var(--blue); border-color: #81d4fa; }
+.ref-nav button:nth-child(2) { background: var(--yellow); border-color: #ffe082; color: var(--ink); }
+.ref-nav button:last-child   { background: var(--green); border-color: #a5d6a7; }
+.ref-nav button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.ref-nav button:active { transform: translateY(2px); box-shadow: none; }
+
+/* ── CANVAS ── */
+.canvas-box { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
+
+.canvas-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, var(--orange), var(--pink));
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  box-shadow: 0 3px 0 rgba(255,140,66,0.3);
+}
+
+.canvas-wrap {
+  position: relative;
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--orange), var(--pink), var(--purple)) border-box;
+  border-radius: 24px;
+  box-shadow: var(--shadow-card), 0 6px 0 rgba(255,140,66,0.2);
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;
+}
+.grid-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.ghost {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif SC', serif;
+  pointer-events: none; z-index: 0;
+  transition: opacity 0.3s;
+  user-select: none;
+  color: rgba(179,136,255,0.12);
+  line-height: 1;
+  overflow: hidden;
+}
+canvas { position: absolute; inset: 0; z-index: 2; display: block; }
+
+.canvas-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.canvas-btns button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  color: white;
+}
+#undoBtn2 { background: var(--blue); border-color: #81d4fa; }
+#clearBtn2 { background: var(--orange); border-color: #ffcc80; }
+#nextCharBtn { background: linear-gradient(135deg, var(--green), var(--blue)) !important;
+               border-color: transparent !important; color: white !important; }
+.canvas-btns button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.canvas-btns button:active { transform: translateY(2px); box-shadow: none; }
+
+/* ── YOUTUBE PANEL ── */
+.yt-panel {
+  background: white;
+  border: 4px solid #ffd4ee;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 6px 0 rgba(255,110,180,0.15), var(--shadow-card);
+}
+.yt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.8rem;
+  background: linear-gradient(135deg, #ff6eb4, #ff8c42);
+  color: white;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.yt-header-left {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; font-weight: 800;
+}
+.yt-logo { font-size: 1.1rem; }
+.yt-char-label {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem;
+  background: rgba(255,255,255,0.25);
+  padding: 0 0.4rem;
+  border-radius: 8px;
+}
+.yt-links { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.yt-link {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.18);
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.yt-link:hover { background: rgba(255,255,255,0.35); }
+.yt-link.active-link { background: white; color: var(--pink); border-color: white; }
+.yt-embed-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 52%;
+  background: #fff5fb;
+}
+.yt-embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.yt-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #fff0f8, #f0f8ff);
+  color: #c9a8ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+.yt-placeholder-char {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 3.5rem;
+  color: rgba(179,136,255,0.15);
+  position: absolute;
+  top: 50%; transform: translateY(-60%);
+  pointer-events: none; user-select: none;
+}
+.play-btn {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--pink), var(--orange));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: white;
+  box-shadow: 0 4px 0 rgba(255,110,180,0.3);
+  transition: all 0.15s;
+  z-index: 1;
+}
+.yt-placeholder:hover .play-btn { transform: scale(1.1); filter: brightness(1.08); }
+.yt-placeholder span { z-index: 1; color: var(--purple); }
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  width: 190px;
+  flex-shrink: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0.7rem;
+  gap: 0.7rem;
+  overflow-y: auto;
+  border-left: 4px solid #ffe0f0;
+  box-shadow: -4px 0 12px rgba(255,110,180,0.07);
+}
+.right-panel::-webkit-scrollbar { width: 5px; }
+.right-panel::-webkit-scrollbar-thumb { background: #ffc0e0; border-radius: 10px; }
+
+.rp-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  border-radius: 12px;
+  padding: 0.25rem 0.6rem;
+  text-align: center;
+}
+.rp-char-big {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 3.8rem;
+  text-align: center;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff0f8, #f0f8ff);
+  border-radius: 16px;
+  padding: 0.4rem;
+  border: 3px solid #ffe0f0;
+}
+.rp-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8f0ff;
+  border-radius: 10px;
+  padding: 0.2rem 0.5rem;
+}
+.rp-key { font-size: 0.68rem; font-weight: 700; color: #a0a0c0; }
+.rp-val { font-size: 0.8rem; font-weight: 800; color: var(--ink); }
+.rp-val.red { color: var(--pink); }
+
+.mastery-bar-wrap { background: #f8f0ff; border-radius: 12px; padding: 0.4rem 0.5rem; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 700; color: #a0a0c0; margin-bottom: 0.3rem; }
+.mastery-bar { height: 8px; background: #e8d5ff; border-radius: 10px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--pink), var(--orange)); border-radius: 10px; transition: width 0.4s; }
+
+.mark-btns { display: flex; flex-direction: column; gap: 0.4rem; }
+.mark-btns button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.4rem 0.5rem;
+  border-radius: 14px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+  background: #f8f0ff;
+  color: var(--ink);
+}
+.mark-btns button:hover { transform: translateY(-1px); }
+.mark-btns button:active { transform: translateY(2px); box-shadow: none; }
+.mark-btns .mbad { background: #fff0f0; border-color: #ffcdd2; color: var(--red); }
+.mark-btns .mbad:hover { background: var(--red); color: white; }
+.mark-btns .mgood { background: #f0fff4; border-color: #c8e6c9; color: var(--green); }
+.mark-btns .mgood:hover { background: var(--green); color: white; }
+
+.session-box {
+  background: linear-gradient(135deg, #fff9c4, #fff0f8);
+  border-radius: 14px;
+  padding: 0.5rem 0.6rem;
+  border: 3px solid #ffe082;
+  margin-top: auto;
+}
+
+/* ── CAT TABS ── */
+.cat-tabs {
+  display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.5rem;
+  border-bottom: 3px solid #ffe0f0;
+  background: #fff5fb;
+  flex-shrink: 0;
+}
+.cat-tab {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border: 2px solid #ffc0e0; border-radius: 20px;
+  cursor: pointer; background: white;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cat-tab:hover { border-color: var(--pink); color: var(--pink); }
+.cat-tab.active { background: linear-gradient(135deg, var(--pink), var(--orange)); color: white; border-color: transparent; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .sidebar { width: 130px; }
+  .right-panel { display: none; }
+  .ref-char { width: 120px; height: 120px; font-size: 82px; }
+  .cpill { width: 32px; height: 32px; font-size: 0.95rem; border-radius: 8px; }
+}
+@media (max-width: 500px) {
+  .sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1><span class="emoji">🐼</span> 小熊 <span>学汉字</span></h1>
+  <div class="topbar-controls">
+    <select id="levelSelect">
+      <option value="top100" selected>⭐ Top 100 Most Common</option>
+      <option value="hsk1">📗 HSK 1</option>
+      <option value="hsk2">📘 HSK 2</option>
+      <option value="hsk3">📙 HSK 3</option>
+      <option value="radicals">🔑 Radicals</option>
+      <option value="numbers">🔢 Numbers</option>
+      <option value="greetings">👋 Greetings</option>
+      <option value="family">👨‍👩‍👧 Family</option>
+      <option value="nature">🌿 Nature</option>
+      <option value="body">🫀 Body</option>
+      <option value="food">🍜 Food</option>
+      <option value="time">⏰ Time</option>
+      <option value="colors">🎨 Colors</option>
+      <option value="animals">🐼 Animals</option>
+      <option value="verbs">🏃 Verbs</option>
+      <option value="adjectives">💫 Adjectives</option>
+    </select>
+    <label class="brush-wrap">✏️ <input type="range" id="brushSize" min="3" max="28" value="10"> <span id="brushVal">10</span></label>
+    <button class="btn" id="ghostBtn">👻 Ghost</button>
+    <button class="btn" id="gridBtn">⊞ Grid</button>
+    <button class="btn red" id="clearBtn">🗑 Clear</button>
+    <button class="btn" id="undoBtn">↩</button>
+    <span class="progress-txt" id="progressTxt"></span>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">✨ Characters ✨</div>
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="🔍 Search…">
+    </div>
+    <div class="cat-tabs" id="catTabs" style="display:none"></div>
+    <div class="char-grid" id="charGrid"></div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="practice-row">
+      <!-- Reference -->
+      <div class="ref-box">
+        <span class="ref-label">📖 Look Here!</span>
+        <div class="ref-char" id="refChar">一</div>
+        <div class="ref-info">
+          <div class="ref-pinyin" id="refPinyin">yī</div>
+          <div class="ref-meaning" id="refMeaning">one / the number 1</div>
+        </div>
+        <div class="ref-nav">
+          <button id="prevBtn">◀ Back</button>
+          <button id="randBtn">🎲 Random</button>
+          <button id="nextBtn">Next ▶</button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-box">
+        <span class="canvas-label">✏️ Write Here!</span>
+        <div class="canvas-wrap" id="canvasWrap">
+          <svg class="grid-overlay" id="gridSvg"></svg>
+          <div class="ghost" id="ghostEl"></div>
+          <canvas id="drawCanvas"></canvas>
+        </div>
+
+        <!-- YouTube Video Panel -->
+        <div class="yt-panel" id="ytPanel">
+          <div class="yt-header">
+            <div class="yt-header-left">
+              <span class="yt-logo">▶</span>
+              <span>Watch:</span>
+              <span class="yt-char-label" id="ytCharLabel">一</span>
+            </div>
+            <div class="yt-links">
+              <a class="yt-link active-link" id="ytLink1" href="#" target="_blank">✎ Strokes</a>
+              <a class="yt-link" id="ytLink2" href="#" target="_blank">🔤 Sound</a>
+              <a class="yt-link" id="ytLink3" href="#" target="_blank">↗ YouTube</a>
+            </div>
+          </div>
+          <div class="yt-embed-wrap" id="ytEmbedWrap">
+            <div class="yt-placeholder" id="ytPlaceholder">
+              <div class="yt-placeholder-char" id="ytPlaceholderChar">一</div>
+              <div class="play-btn">▶</div>
+              <span id="ytPlaceholderText">Click to search stroke order video</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-btns">
+          <button id="undoBtn2">↩ Undo</button>
+          <button id="clearBtn2">🗑 Clear</button>
+          <button id="nextCharBtn">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rp-title">🔍 Character Info</div>
+    <div class="rp-char-big" id="rpChar">一</div>
+    <div class="rp-row"><span class="rp-key">Pinyin</span><span class="rp-val red" id="rpPinyin">yī</span></div>
+    <div class="rp-row"><span class="rp-key">Strokes</span><span class="rp-val" id="rpStrokes">1</span></div>
+    <div class="rp-row"><span class="rp-key">Radical</span><span class="rp-val" id="rpRadical">一</span></div>
+    <div class="rp-row"><span class="rp-key">HSK</span><span class="rp-val" id="rpHSK">1</span></div>
+    <div class="rp-key" style="font-size:0.68rem;font-weight:700;color:#a0a0c0;padding: 0 0.2rem;">Meaning</div>
+    <div style="font-size:0.82rem;font-weight:700;line-height:1.4;background:#f8f0ff;border-radius:10px;padding:0.3rem 0.5rem;color:var(--ink)" id="rpMeaning">one / the number 1</div>
+
+    <div class="mastery-bar-wrap">
+      <div class="mastery-label"><span>⭐ Mastery</span><span id="masteryPct">0%</span></div>
+      <div class="mastery-bar"><div class="mastery-fill" id="masteryFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="rp-title">🏅 Mark Practice</div>
+    <div class="mark-btns">
+      <button class="mbad" onclick="markChar(1)">😕 Need More!</button>
+      <button onclick="markChar(2)">🙂 Getting it!</button>
+      <button class="mgood" onclick="markChar(3)">⭐ I got it!</button>
+    </div>
+
+    <div class="session-box">
+      <div class="rp-title" style="margin-bottom:0.4rem">🎯 Today</div>
+      <div class="rp-row" style="margin-top:0.3rem"><span class="rp-key">Practiced</span><span class="rp-val" id="sessionCount">0</span></div>
+      <div class="rp-row" style="margin-top:0.3rem"><span class="rp-key">Mastered</span><span class="rp-val" id="masteredCount">0</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  CHARACTER DATABASE
+// ══════════════════════════════════════════
+const DB = {
+  numbers: [
+    {char:'零',pinyin:'líng',meaning:'zero',strokes:13,radical:'雨',hsk:1},
+    {char:'一',pinyin:'yī',meaning:'one',strokes:1,radical:'一',hsk:1},
+    {char:'二',pinyin:'èr',meaning:'two',strokes:2,radical:'二',hsk:1},
+    {char:'三',pinyin:'sān',meaning:'three',strokes:3,radical:'一',hsk:1},
+    {char:'四',pinyin:'sì',meaning:'four',strokes:5,radical:'囗',hsk:1},
+    {char:'五',pinyin:'wǔ',meaning:'five',strokes:4,radical:'二',hsk:1},
+    {char:'六',pinyin:'liù',meaning:'six',strokes:4,radical:'八',hsk:1},
+    {char:'七',pinyin:'qī',meaning:'seven',strokes:2,radical:'一',hsk:1},
+    {char:'八',pinyin:'bā',meaning:'eight',strokes:2,radical:'八',hsk:1},
+    {char:'九',pinyin:'jiǔ',meaning:'nine',strokes:2,radical:'乙',hsk:1},
+    {char:'十',pinyin:'shí',meaning:'ten',strokes:2,radical:'十',hsk:1},
+    {char:'百',pinyin:'bǎi',meaning:'hundred',strokes:6,radical:'白',hsk:1},
+    {char:'千',pinyin:'qiān',meaning:'thousand',strokes:3,radical:'十',hsk:1},
+    {char:'万',pinyin:'wàn',meaning:'ten thousand',strokes:3,radical:'一',hsk:1},
+    {char:'亿',pinyin:'yì',meaning:'100 million',strokes:3,radical:'亻',hsk:2},
+  ],
+  greetings: [
+    {char:'你',pinyin:'nǐ',meaning:'you',strokes:7,radical:'亻',hsk:1},
+    {char:'好',pinyin:'hǎo',meaning:'good/well',strokes:6,radical:'女',hsk:1},
+    {char:'我',pinyin:'wǒ',meaning:'I/me',strokes:7,radical:'戈',hsk:1},
+    {char:'是',pinyin:'shì',meaning:'to be/is',strokes:9,radical:'日',hsk:1},
+    {char:'不',pinyin:'bù',meaning:'no/not',strokes:4,radical:'一',hsk:1},
+    {char:'谢',pinyin:'xiè',meaning:'to thank',strokes:12,radical:'讠',hsk:1},
+    {char:'再',pinyin:'zài',meaning:'again',strokes:6,radical:'冂',hsk:1},
+    {char:'见',pinyin:'jiàn',meaning:'to see/meet',strokes:4,radical:'见',hsk:1},
+    {char:'请',pinyin:'qǐng',meaning:'please/invite',strokes:10,radical:'讠',hsk:1},
+    {char:'问',pinyin:'wèn',meaning:'to ask',strokes:6,radical:'口',hsk:1},
+    {char:'名',pinyin:'míng',meaning:'name',strokes:6,radical:'夕',hsk:1},
+    {char:'字',pinyin:'zì',meaning:'character/word',strokes:6,radical:'宀',hsk:1},
+    {char:'叫',pinyin:'jiào',meaning:'to be called',strokes:5,radical:'口',hsk:1},
+    {char:'对',pinyin:'duì',meaning:'correct/towards',strokes:5,radical:'又',hsk:1},
+    {char:'哦',pinyin:'ó',meaning:'oh! (exclamation)',strokes:9,radical:'口',hsk:1},
+    {char:'吗',pinyin:'ma',meaning:'question particle',strokes:6,radical:'口',hsk:1},
+    {char:'呢',pinyin:'ne',meaning:'(question particle)',strokes:8,radical:'口',hsk:1},
+    {char:'啊',pinyin:'a',meaning:'(exclamation)',strokes:10,radical:'口',hsk:1},
+  ],
+  family: [
+    {char:'家',pinyin:'jiā',meaning:'home/family',strokes:10,radical:'宀',hsk:1},
+    {char:'人',pinyin:'rén',meaning:'person/people',strokes:2,radical:'人',hsk:1},
+    {char:'父',pinyin:'fù',meaning:'father',strokes:4,radical:'父',hsk:2},
+    {char:'母',pinyin:'mǔ',meaning:'mother',strokes:5,radical:'母',hsk:2},
+    {char:'爸',pinyin:'bà',meaning:'dad',strokes:8,radical:'父',hsk:1},
+    {char:'妈',pinyin:'mā',meaning:'mom',strokes:6,radical:'女',hsk:1},
+    {char:'子',pinyin:'zǐ',meaning:'son/child',strokes:3,radical:'子',hsk:1},
+    {char:'女',pinyin:'nǚ',meaning:'female/daughter',strokes:3,radical:'女',hsk:1},
+    {char:'兄',pinyin:'xiōng',meaning:'elder brother',strokes:5,radical:'儿',hsk:2},
+    {char:'弟',pinyin:'dì',meaning:'younger brother',strokes:7,radical:'弓',hsk:1},
+    {char:'姐',pinyin:'jiě',meaning:'elder sister',strokes:8,radical:'女',hsk:1},
+    {char:'妹',pinyin:'mèi',meaning:'younger sister',strokes:8,radical:'女',hsk:1},
+    {char:'哥',pinyin:'gē',meaning:'older brother',strokes:10,radical:'口',hsk:1},
+    {char:'丈',pinyin:'zhàng',meaning:'husband (formal)',strokes:3,radical:'一',hsk:2},
+    {char:'夫',pinyin:'fū',meaning:'husband',strokes:4,radical:'大',hsk:2},
+    {char:'妻',pinyin:'qī',meaning:'wife',strokes:8,radical:'女',hsk:2},
+    {char:'孩',pinyin:'hái',meaning:'child',strokes:9,radical:'子',hsk:1},
+    {char:'儿',pinyin:'ér',meaning:'son/child',strokes:2,radical:'儿',hsk:1},
+    {char:'祖',pinyin:'zǔ',meaning:'ancestor/grandfather',strokes:9,radical:'礻',hsk:3},
+    {char:'孙',pinyin:'sūn',meaning:'grandchild',strokes:6,radical:'子',hsk:3},
+  ],
+  nature: [
+    {char:'山',pinyin:'shān',meaning:'mountain',strokes:3,radical:'山',hsk:1},
+    {char:'水',pinyin:'shuǐ',meaning:'water',strokes:4,radical:'水',hsk:1},
+    {char:'火',pinyin:'huǒ',meaning:'fire',strokes:4,radical:'火',hsk:1},
+    {char:'木',pinyin:'mù',meaning:'wood/tree',strokes:4,radical:'木',hsk:1},
+    {char:'土',pinyin:'tǔ',meaning:'earth/soil',strokes:3,radical:'土',hsk:1},
+    {char:'日',pinyin:'rì',meaning:'sun/day',strokes:4,radical:'日',hsk:1},
+    {char:'月',pinyin:'yuè',meaning:'moon/month',strokes:4,radical:'月',hsk:1},
+    {char:'天',pinyin:'tiān',meaning:'sky/heaven/day',strokes:4,radical:'大',hsk:1},
+    {char:'地',pinyin:'dì',meaning:'earth/ground',strokes:6,radical:'土',hsk:1},
+    {char:'风',pinyin:'fēng',meaning:'wind',strokes:4,radical:'风',hsk:1},
+    {char:'雨',pinyin:'yǔ',meaning:'rain',strokes:8,radical:'雨',hsk:1},
+    {char:'雪',pinyin:'xuě',meaning:'snow',strokes:11,radical:'雨',hsk:1},
+    {char:'云',pinyin:'yún',meaning:'cloud',strokes:4,radical:'二',hsk:2},
+    {char:'花',pinyin:'huā',meaning:'flower',strokes:7,radical:'艹',hsk:1},
+    {char:'草',pinyin:'cǎo',meaning:'grass/plant',strokes:9,radical:'艹',hsk:1},
+    {char:'树',pinyin:'shù',meaning:'tree',strokes:9,radical:'木',hsk:1},
+    {char:'河',pinyin:'hé',meaning:'river',strokes:8,radical:'氵',hsk:2},
+    {char:'海',pinyin:'hǎi',meaning:'sea/ocean',strokes:10,radical:'氵',hsk:1},
+    {char:'石',pinyin:'shí',meaning:'stone/rock',strokes:5,radical:'石',hsk:2},
+    {char:'沙',pinyin:'shā',meaning:'sand',strokes:7,radical:'氵',hsk:2},
+  ],
+  body: [
+    {char:'手',pinyin:'shǒu',meaning:'hand',strokes:4,radical:'手',hsk:1},
+    {char:'口',pinyin:'kǒu',meaning:'mouth',strokes:3,radical:'口',hsk:1},
+    {char:'耳',pinyin:'ěr',meaning:'ear',strokes:6,radical:'耳',hsk:1},
+    {char:'目',pinyin:'mù',meaning:'eye (formal)',strokes:5,radical:'目',hsk:2},
+    {char:'眼',pinyin:'yǎn',meaning:'eye',strokes:11,radical:'目',hsk:1},
+    {char:'鼻',pinyin:'bí',meaning:'nose',strokes:14,radical:'鼻',hsk:1},
+    {char:'脸',pinyin:'liǎn',meaning:'face',strokes:11,radical:'月',hsk:1},
+    {char:'头',pinyin:'tóu',meaning:'head',strokes:5,radical:'大',hsk:1},
+    {char:'发',pinyin:'fà',meaning:'hair',strokes:5,radical:'又',hsk:1},
+    {char:'心',pinyin:'xīn',meaning:'heart/mind',strokes:4,radical:'心',hsk:1},
+    {char:'肚',pinyin:'dù',meaning:'belly/stomach',strokes:7,radical:'月',hsk:2},
+    {char:'背',pinyin:'bèi',meaning:'back (body)',strokes:9,radical:'月',hsk:2},
+    {char:'腿',pinyin:'tuǐ',meaning:'leg',strokes:13,radical:'月',hsk:1},
+    {char:'脚',pinyin:'jiǎo',meaning:'foot',strokes:11,radical:'月',hsk:1},
+    {char:'臂',pinyin:'bì',meaning:'arm',strokes:13,radical:'月',hsk:3},
+    {char:'指',pinyin:'zhǐ',meaning:'finger/point',strokes:9,radical:'手',hsk:2},
+    {char:'骨',pinyin:'gǔ',meaning:'bone',strokes:9,radical:'骨',hsk:3},
+    {char:'血',pinyin:'xuè',meaning:'blood',strokes:6,radical:'血',hsk:3},
+  ],
+  food: [
+    {char:'饭',pinyin:'fàn',meaning:'rice/meal',strokes:7,radical:'饣',hsk:1},
+    {char:'水',pinyin:'shuǐ',meaning:'water',strokes:4,radical:'水',hsk:1},
+    {char:'茶',pinyin:'chá',meaning:'tea',strokes:9,radical:'艹',hsk:1},
+    {char:'酒',pinyin:'jiǔ',meaning:'alcohol/wine',strokes:10,radical:'氵',hsk:2},
+    {char:'肉',pinyin:'ròu',meaning:'meat',strokes:6,radical:'肉',hsk:2},
+    {char:'鱼',pinyin:'yú',meaning:'fish',strokes:8,radical:'鱼',hsk:1},
+    {char:'蛋',pinyin:'dàn',meaning:'egg',strokes:11,radical:'虫',hsk:1},
+    {char:'菜',pinyin:'cài',meaning:'vegetable/dish',strokes:11,radical:'艹',hsk:1},
+    {char:'米',pinyin:'mǐ',meaning:'uncooked rice',strokes:6,radical:'米',hsk:1},
+    {char:'面',pinyin:'miàn',meaning:'noodles/flour/face',strokes:9,radical:'麦',hsk:1},
+    {char:'糖',pinyin:'táng',meaning:'sugar/candy',strokes:16,radical:'米',hsk:2},
+    {char:'盐',pinyin:'yán',meaning:'salt',strokes:8,radical:'皿',hsk:3},
+    {char:'辣',pinyin:'là',meaning:'spicy/hot',strokes:14,radical:'辛',hsk:2},
+    {char:'甜',pinyin:'tián',meaning:'sweet',strokes:11,radical:'舌',hsk:2},
+    {char:'苦',pinyin:'kǔ',meaning:'bitter',strokes:8,radical:'艹',hsk:2},
+    {char:'酸',pinyin:'suān',meaning:'sour',strokes:14,radical:'酉',hsk:2},
+    {char:'热',pinyin:'rè',meaning:'hot',strokes:10,radical:'灬',hsk:1},
+    {char:'冷',pinyin:'lěng',meaning:'cold',strokes:7,radical:'冫',hsk:1},
+    {char:'苹',pinyin:'píng',meaning:'apple (苹果)',strokes:8,radical:'艹',hsk:1},
+    {char:'果',pinyin:'guǒ',meaning:'fruit/result',strokes:8,radical:'木',hsk:1},
+  ],
+  time: [
+    {char:'年',pinyin:'nián',meaning:'year',strokes:6,radical:'干',hsk:1},
+    {char:'月',pinyin:'yuè',meaning:'month/moon',strokes:4,radical:'月',hsk:1},
+    {char:'日',pinyin:'rì',meaning:'day/sun',strokes:4,radical:'日',hsk:1},
+    {char:'时',pinyin:'shí',meaning:'time/hour',strokes:7,radical:'日',hsk:1},
+    {char:'分',pinyin:'fēn',meaning:'minute/part',strokes:4,radical:'刀',hsk:1},
+    {char:'秒',pinyin:'miǎo',meaning:'second',strokes:9,radical:'禾',hsk:2},
+    {char:'今',pinyin:'jīn',meaning:'now/today',strokes:4,radical:'人',hsk:1},
+    {char:'明',pinyin:'míng',meaning:'bright/tomorrow',strokes:8,radical:'日',hsk:1},
+    {char:'昨',pinyin:'zuó',meaning:'yesterday',strokes:9,radical:'日',hsk:1},
+    {char:'前',pinyin:'qián',meaning:'before/in front',strokes:9,radical:'刀',hsk:1},
+    {char:'后',pinyin:'hòu',meaning:'after/behind',strokes:6,radical:'口',hsk:1},
+    {char:'早',pinyin:'zǎo',meaning:'early/morning',strokes:6,radical:'日',hsk:1},
+    {char:'晚',pinyin:'wǎn',meaning:'late/evening',strokes:11,radical:'日',hsk:1},
+    {char:'周',pinyin:'zhōu',meaning:'week/zhou',strokes:8,radical:'口',hsk:1},
+    {char:'星',pinyin:'xīng',meaning:'star',strokes:9,radical:'日',hsk:1},
+    {char:'期',pinyin:'qī',meaning:'period/expect',strokes:12,radical:'月',hsk:1},
+    {char:'上',pinyin:'shàng',meaning:'up/above/last',strokes:3,radical:'一',hsk:1},
+    {char:'下',pinyin:'xià',meaning:'down/below/next',strokes:3,radical:'一',hsk:1},
+  ],
+  colors: [
+    {char:'红',pinyin:'hóng',meaning:'red',strokes:6,radical:'纟',hsk:1},
+    {char:'蓝',pinyin:'lán',meaning:'blue',strokes:13,radical:'艹',hsk:1},
+    {char:'绿',pinyin:'lǜ',meaning:'green',strokes:11,radical:'纟',hsk:1},
+    {char:'黄',pinyin:'huáng',meaning:'yellow',strokes:11,radical:'黄',hsk:1},
+    {char:'白',pinyin:'bái',meaning:'white',strokes:5,radical:'白',hsk:1},
+    {char:'黑',pinyin:'hēi',meaning:'black',strokes:12,radical:'黑',hsk:1},
+    {char:'紫',pinyin:'zǐ',meaning:'purple',strokes:12,radical:'糸',hsk:2},
+    {char:'橙',pinyin:'chéng',meaning:'orange',strokes:16,radical:'木',hsk:2},
+    {char:'粉',pinyin:'fěn',meaning:'pink/powder',strokes:10,radical:'米',hsk:2},
+    {char:'灰',pinyin:'huī',meaning:'gray/ash',strokes:6,radical:'火',hsk:2},
+    {char:'棕',pinyin:'zōng',meaning:'brown',strokes:12,radical:'木',hsk:3},
+    {char:'色',pinyin:'sè',meaning:'color',strokes:6,radical:'色',hsk:1},
+  ],
+  animals: [
+    {char:'猫',pinyin:'māo',meaning:'cat',strokes:11,radical:'犭',hsk:1},
+    {char:'狗',pinyin:'gǒu',meaning:'dog',strokes:8,radical:'犭',hsk:1},
+    {char:'鸟',pinyin:'niǎo',meaning:'bird',strokes:5,radical:'鸟',hsk:1},
+    {char:'鱼',pinyin:'yú',meaning:'fish',strokes:8,radical:'鱼',hsk:1},
+    {char:'马',pinyin:'mǎ',meaning:'horse',strokes:3,radical:'马',hsk:1},
+    {char:'牛',pinyin:'niú',meaning:'cow/ox',strokes:4,radical:'牛',hsk:1},
+    {char:'羊',pinyin:'yáng',meaning:'sheep/goat',strokes:6,radical:'羊',hsk:1},
+    {char:'猪',pinyin:'zhū',meaning:'pig',strokes:11,radical:'犭',hsk:2},
+    {char:'鸡',pinyin:'jī',meaning:'chicken',strokes:7,radical:'鸟',hsk:1},
+    {char:'兔',pinyin:'tù',meaning:'rabbit',strokes:8,radical:'儿',hsk:2},
+    {char:'蛇',pinyin:'shé',meaning:'snake',strokes:11,radical:'虫',hsk:2},
+    {char:'龙',pinyin:'lóng',meaning:'dragon',strokes:5,radical:'龙',hsk:2},
+    {char:'虎',pinyin:'hǔ',meaning:'tiger',strokes:8,radical:'虍',hsk:2},
+    {char:'熊',pinyin:'xióng',meaning:'bear',strokes:14,radical:'灬',hsk:2},
+    {char:'狐',pinyin:'hú',meaning:'fox',strokes:8,radical:'犭',hsk:3},
+    {char:'狼',pinyin:'láng',meaning:'wolf',strokes:10,radical:'犭',hsk:3},
+    {char:'象',pinyin:'xiàng',meaning:'elephant',strokes:12,radical:'豕',hsk:2},
+    {char:'鼠',pinyin:'shǔ',meaning:'rat/mouse',strokes:13,radical:'鼠',hsk:2},
+  ],
+  verbs: [
+    {char:'吃',pinyin:'chī',meaning:'to eat',strokes:6,radical:'口',hsk:1},
+    {char:'喝',pinyin:'hē',meaning:'to drink',strokes:12,radical:'口',hsk:1},
+    {char:'说',pinyin:'shuō',meaning:'to speak/say',strokes:9,radical:'讠',hsk:1},
+    {char:'听',pinyin:'tīng',meaning:'to listen',strokes:7,radical:'口',hsk:1},
+    {char:'看',pinyin:'kàn',meaning:'to look/watch',strokes:9,radical:'目',hsk:1},
+    {char:'写',pinyin:'xiě',meaning:'to write',strokes:5,radical:'冖',hsk:1},
+    {char:'读',pinyin:'dú',meaning:'to read',strokes:10,radical:'讠',hsk:1},
+    {char:'走',pinyin:'zǒu',meaning:'to walk/go',strokes:7,radical:'走',hsk:1},
+    {char:'来',pinyin:'lái',meaning:'to come',strokes:7,radical:'木',hsk:1},
+    {char:'去',pinyin:'qù',meaning:'to go',strokes:5,radical:'去',hsk:1},
+    {char:'买',pinyin:'mǎi',meaning:'to buy',strokes:6,radical:'乙',hsk:1},
+    {char:'卖',pinyin:'mài',meaning:'to sell',strokes:8,radical:'士',hsk:2},
+    {char:'学',pinyin:'xué',meaning:'to study/learn',strokes:8,radical:'子',hsk:1},
+    {char:'教',pinyin:'jiāo',meaning:'to teach',strokes:11,radical:'攴',hsk:2},
+    {char:'做',pinyin:'zuò',meaning:'to do/make',strokes:11,radical:'亻',hsk:1},
+    {char:'想',pinyin:'xiǎng',meaning:'to think/want',strokes:13,radical:'心',hsk:1},
+    {char:'知',pinyin:'zhī',meaning:'to know',strokes:8,radical:'矢',hsk:1},
+    {char:'爱',pinyin:'ài',meaning:'to love',strokes:10,radical:'爪',hsk:1},
+    {char:'帮',pinyin:'bāng',meaning:'to help',strokes:9,radical:'巾',hsk:2},
+    {char:'打',pinyin:'dǎ',meaning:'to hit/play/call',strokes:5,radical:'手',hsk:1},
+  ],
+  adjectives: [
+    {char:'大',pinyin:'dà',meaning:'big/large',strokes:3,radical:'大',hsk:1},
+    {char:'小',pinyin:'xiǎo',meaning:'small/little',strokes:3,radical:'小',hsk:1},
+    {char:'多',pinyin:'duō',meaning:'many/much',strokes:6,radical:'夕',hsk:1},
+    {char:'少',pinyin:'shǎo',meaning:'few/little',strokes:4,radical:'小',hsk:1},
+    {char:'长',pinyin:'cháng',meaning:'long',strokes:4,radical:'长',hsk:1},
+    {char:'短',pinyin:'duǎn',meaning:'short',strokes:12,radical:'矢',hsk:1},
+    {char:'高',pinyin:'gāo',meaning:'tall/high',strokes:10,radical:'高',hsk:1},
+    {char:'低',pinyin:'dī',meaning:'low/short',strokes:7,radical:'亻',hsk:2},
+    {char:'快',pinyin:'kuài',meaning:'fast/quick',strokes:7,radical:'忄',hsk:1},
+    {char:'慢',pinyin:'màn',meaning:'slow',strokes:14,radical:'忄',hsk:1},
+    {char:'新',pinyin:'xīn',meaning:'new',strokes:13,radical:'斤',hsk:1},
+    {char:'旧',pinyin:'jiù',meaning:'old/used',strokes:5,radical:'日',hsk:2},
+    {char:'美',pinyin:'měi',meaning:'beautiful',strokes:9,radical:'羊',hsk:1},
+    {char:'丑',pinyin:'chǒu',meaning:'ugly',strokes:4,radical:'一',hsk:3},
+    {char:'贵',pinyin:'guì',meaning:'expensive',strokes:9,radical:'贝',hsk:1},
+    {char:'便',pinyin:'pián',meaning:'cheap/convenient',strokes:9,radical:'亻',hsk:2},
+    {char:'难',pinyin:'nán',meaning:'difficult',strokes:10,radical:'又',hsk:1},
+    {char:'易',pinyin:'yì',meaning:'easy',strokes:8,radical:'日',hsk:2},
+    {char:'忙',pinyin:'máng',meaning:'busy',strokes:6,radical:'忄',hsk:1},
+    {char:'累',pinyin:'lèi',meaning:'tired',strokes:11,radical:'糸',hsk:1},
+  ],
+  hsk1: [
+    {char:'爱',pinyin:'ài',meaning:'love',strokes:10,radical:'爪',hsk:1},
+    {char:'八',pinyin:'bā',meaning:'eight',strokes:2,radical:'八',hsk:1},
+    {char:'爸爸',pinyin:'bà ba',meaning:'father/dad',strokes:8,radical:'父',hsk:1},
+    {char:'杯子',pinyin:'bēi zi',meaning:'cup/glass',strokes:8,radical:'木',hsk:1},
+    {char:'北京',pinyin:'Běi jīng',meaning:'Beijing',strokes:5,radical:'匕',hsk:1},
+    {char:'本',pinyin:'běn',meaning:'book/root',strokes:5,radical:'木',hsk:1},
+    {char:'不',pinyin:'bù',meaning:'no/not',strokes:4,radical:'一',hsk:1},
+    {char:'不客气',pinyin:'bú kè qi',meaning:"you're welcome",strokes:4,radical:'一',hsk:1},
+    {char:'菜',pinyin:'cài',meaning:'dish/vegetable',strokes:11,radical:'艹',hsk:1},
+    {char:'茶',pinyin:'chá',meaning:'tea',strokes:9,radical:'艹',hsk:1},
+    {char:'吃',pinyin:'chī',meaning:'eat',strokes:6,radical:'口',hsk:1},
+    {char:'出租车',pinyin:'chū zū chē',meaning:'taxi',strokes:5,radical:'凵',hsk:1},
+    {char:'打电话',pinyin:'dǎ diàn huà',meaning:'make a call',strokes:5,radical:'手',hsk:1},
+    {char:'大',pinyin:'dà',meaning:'big',strokes:3,radical:'大',hsk:1},
+    {char:'的',pinyin:'de',meaning:'(possessive)',strokes:8,radical:'白',hsk:1},
+    {char:'点',pinyin:'diǎn',meaning:'point, dot, oclock',strokes:9,radical:'灬',hsk:1},
+    {char:'电脑',pinyin:'diàn nǎo',meaning:'computer',strokes:5,radical:'田',hsk:1},
+    {char:'电视',pinyin:'diàn shì',meaning:'television',strokes:5,radical:'田',hsk:1},
+    {char:'电影',pinyin:'diàn yǐng',meaning:'movie',strokes:5,radical:'田',hsk:1},
+    {char:'东西',pinyin:'dōng xi',meaning:'thing/stuff',strokes:5,radical:'木',hsk:1},
+    {char:'都',pinyin:'dōu',meaning:'all/both',strokes:10,radical:'邑',hsk:1},
+    {char:'读',pinyin:'dú',meaning:'read',strokes:10,radical:'讠',hsk:1},
+    {char:'对不起',pinyin:'duì bu qǐ',meaning:'sorry',strokes:5,radical:'又',hsk:1},
+    {char:'多',pinyin:'duō',meaning:'many',strokes:6,radical:'夕',hsk:1},
+    {char:'多少',pinyin:'duō shǎo',meaning:'how many/much',strokes:6,radical:'夕',hsk:1},
+    {char:'儿子',pinyin:'ér zi',meaning:'son',strokes:2,radical:'儿',hsk:1},
+    {char:'二',pinyin:'èr',meaning:'two',strokes:2,radical:'二',hsk:1},
+    {char:'饭店',pinyin:'fàn diàn',meaning:'hotel/restaurant',strokes:7,radical:'饣',hsk:1},
+    {char:'飞机',pinyin:'fēi jī',meaning:'airplane',strokes:3,radical:'飞',hsk:1},
+    {char:'分钟',pinyin:'fēn zhōng',meaning:'minute',strokes:4,radical:'刀',hsk:1},
+    {char:'高兴',pinyin:'gāo xìng',meaning:'happy',strokes:10,radical:'高',hsk:1},
+    {char:'个',pinyin:'gè',meaning:'(measure word)',strokes:3,radical:'人',hsk:1},
+    {char:'工作',pinyin:'gōng zuò',meaning:'work/job',strokes:3,radical:'工',hsk:1},
+    {char:'狗',pinyin:'gǒu',meaning:'dog',strokes:8,radical:'犭',hsk:1},
+    {char:'汉语',pinyin:'Hàn yǔ',meaning:'Chinese language',strokes:5,radical:'氵',hsk:1},
+    {char:'好',pinyin:'hǎo',meaning:'good',strokes:6,radical:'女',hsk:1},
+    {char:'好吃',pinyin:'hǎo chī',meaning:'delicious',strokes:6,radical:'女',hsk:1},
+    {char:'喝',pinyin:'hē',meaning:'drink',strokes:12,radical:'口',hsk:1},
+    {char:'和',pinyin:'hé',meaning:'and/with',strokes:8,radical:'口',hsk:1},
+    {char:'很',pinyin:'hěn',meaning:'very',strokes:9,radical:'彳',hsk:1},
+    {char:'后面',pinyin:'hòu miàn',meaning:'behind/back',strokes:6,radical:'口',hsk:1},
+    {char:'回',pinyin:'huí',meaning:'return',strokes:6,radical:'囗',hsk:1},
+    {char:'会',pinyin:'huì',meaning:'can/will',strokes:6,radical:'人',hsk:1},
+    {char:'几',pinyin:'jǐ',meaning:'how many/several',strokes:2,radical:'几',hsk:1},
+    {char:'家',pinyin:'jiā',meaning:'home/family',strokes:10,radical:'宀',hsk:1},
+    {char:'叫',pinyin:'jiào',meaning:'be called',strokes:5,radical:'口',hsk:1},
+    {char:'今天',pinyin:'jīn tiān',meaning:'today',strokes:4,radical:'人',hsk:1},
+    {char:'九',pinyin:'jiǔ',meaning:'nine',strokes:2,radical:'乙',hsk:1},
+    {char:'开',pinyin:'kāi',meaning:'open',strokes:4,radical:'廾',hsk:1},
+    {char:'看',pinyin:'kàn',meaning:'look/see',strokes:9,radical:'目',hsk:1},
+    {char:'看见',pinyin:'kàn jiàn',meaning:'see/notice',strokes:9,radical:'目',hsk:1},
+  ].filter((v,i,a)=>a.findIndex(x=>x.char===v.char)===i),
+  hsk2: [
+    {char:'吧',pinyin:'ba',meaning:'(suggestion particle)',strokes:7,radical:'口',hsk:2},
+    {char:'白',pinyin:'bái',meaning:'white',strokes:5,radical:'白',hsk:2},
+    {char:'百',pinyin:'bǎi',meaning:'hundred',strokes:6,radical:'白',hsk:2},
+    {char:'帮助',pinyin:'bāng zhù',meaning:'help/assist',strokes:9,radical:'巾',hsk:2},
+    {char:'报纸',pinyin:'bào zhǐ',meaning:'newspaper',strokes:7,radical:'扌',hsk:2},
+    {char:'比',pinyin:'bǐ',meaning:'compare',strokes:4,radical:'比',hsk:2},
+    {char:'别',pinyin:'bié',meaning:"don't",strokes:7,radical:'刀',hsk:2},
+    {char:'宾馆',pinyin:'bīn guǎn',meaning:'hotel',strokes:10,radical:'宀',hsk:2},
+    {char:'长',pinyin:'cháng',meaning:'long',strokes:4,radical:'长',hsk:2},
+    {char:'唱歌',pinyin:'chàng gē',meaning:'sing a song',strokes:11,radical:'口',hsk:2},
+    {char:'出',pinyin:'chū',meaning:'exit/go out',strokes:5,radical:'凵',hsk:2},
+    {char:'穿',pinyin:'chuān',meaning:'wear',strokes:9,radical:'穴',hsk:2},
+    {char:'次',pinyin:'cì',meaning:'time(s)/occasion',strokes:6,radical:'欠',hsk:2},
+    {char:'从',pinyin:'cóng',meaning:'from',strokes:4,radical:'人',hsk:2},
+    {char:'错',pinyin:'cuò',meaning:'wrong/mistake',strokes:13,radical:'钅',hsk:2},
+    {char:'打篮球',pinyin:'dǎ lán qiú',meaning:'play basketball',strokes:5,radical:'手',hsk:2},
+    {char:'带',pinyin:'dài',meaning:'bring/take',strokes:9,radical:'巾',hsk:2},
+    {char:'但是',pinyin:'dàn shì',meaning:'but/however',strokes:7,radical:'亻',hsk:2},
+    {char:'到',pinyin:'dào',meaning:'arrive/reach',strokes:8,radical:'刀',hsk:2},
+    {char:'地方',pinyin:'dì fāng',meaning:'place',strokes:6,radical:'土',hsk:2},
+    {char:'弟弟',pinyin:'dì di',meaning:'younger brother',strokes:7,radical:'弓',hsk:2},
+    {char:'第一',pinyin:'dì yī',meaning:'first',strokes:11,radical:'竹',hsk:2},
+    {char:'懂',pinyin:'dǒng',meaning:'understand',strokes:15,radical:'忄',hsk:2},
+    {char:'对',pinyin:'duì',meaning:'correct',strokes:5,radical:'又',hsk:2},
+    {char:'房间',pinyin:'fáng jiān',meaning:'room',strokes:8,radical:'户',hsk:2},
+    {char:'非常',pinyin:'fēi cháng',meaning:'very/extremely',strokes:8,radical:'非',hsk:2},
+    {char:'服务员',pinyin:'fú wù yuán',meaning:'waiter/staff',strokes:8,radical:'月',hsk:2},
+    {char:'高',pinyin:'gāo',meaning:'tall/high',strokes:10,radical:'高',hsk:2},
+    {char:'告诉',pinyin:'gào su',meaning:'tell/inform',strokes:7,radical:'口',hsk:2},
+    {char:'哥哥',pinyin:'gē ge',meaning:'elder brother',strokes:10,radical:'口',hsk:2},
+  ].filter((v,i,a)=>a.findIndex(x=>x.char===v.char)===i),
+  hsk3: [
+    {char:'阿姨',pinyin:'ā yí',meaning:'auntie',strokes:7,radical:'阝',hsk:3},
+    {char:'啊',pinyin:'a',meaning:'(exclamation)',strokes:10,radical:'口',hsk:3},
+    {char:'矮',pinyin:'ǎi',meaning:'short (height)',strokes:13,radical:'矢',hsk:3},
+    {char:'安静',pinyin:'ān jìng',meaning:'quiet',strokes:6,radical:'宀',hsk:3},
+    {char:'把',pinyin:'bǎ',meaning:'(disposal marker)',strokes:7,radical:'手',hsk:3},
+    {char:'班',pinyin:'bān',meaning:'class/shift',strokes:10,radical:'玨',hsk:3},
+    {char:'搬',pinyin:'bān',meaning:'move/carry',strokes:13,radical:'手',hsk:3},
+    {char:'半',pinyin:'bàn',meaning:'half',strokes:5,radical:'十',hsk:3},
+    {char:'办法',pinyin:'bàn fǎ',meaning:'method/way',strokes:4,radical:'力',hsk:3},
+    {char:'办公室',pinyin:'bàn gōng shì',meaning:'office',strokes:4,radical:'力',hsk:3},
+    {char:'包',pinyin:'bāo',meaning:'bag/wrap',strokes:5,radical:'勹',hsk:3},
+    {char:'饱',pinyin:'bǎo',meaning:'full (after eating)',strokes:8,radical:'饣',hsk:3},
+    {char:'北方',pinyin:'běi fāng',meaning:'north/northern',strokes:5,radical:'匕',hsk:3},
+    {char:'被',pinyin:'bèi',meaning:'(passive marker)',strokes:10,radical:'衣',hsk:3},
+    {char:'鼻子',pinyin:'bí zi',meaning:'nose',strokes:14,radical:'鼻',hsk:3},
+    {char:'比较',pinyin:'bǐ jiào',meaning:'relatively/compare',strokes:4,radical:'比',hsk:3},
+    {char:'笔记本',pinyin:'bǐ jì běn',meaning:'notebook',strokes:10,radical:'竹',hsk:3},
+    {char:'必须',pinyin:'bì xū',meaning:'must/have to',strokes:5,radical:'心',hsk:3},
+    {char:'变化',pinyin:'biàn huà',meaning:'change',strokes:8,radical:'又',hsk:3},
+    {char:'表示',pinyin:'biǎo shì',meaning:'express/indicate',strokes:8,radical:'衣',hsk:3},
+    {char:'冰箱',pinyin:'bīng xiāng',meaning:'refrigerator',strokes:6,radical:'冫',hsk:3},
+    {char:'不但',pinyin:'bú dàn',meaning:'not only',strokes:4,radical:'一',hsk:3},
+    {char:'部分',pinyin:'bù fen',meaning:'part/section',strokes:10,radical:'邑',hsk:3},
+    {char:'擦',pinyin:'cā',meaning:'wipe/rub',strokes:17,radical:'手',hsk:3},
+    {char:'猜',pinyin:'cāi',meaning:'guess',strokes:11,radical:'犭',hsk:3},
+    {char:'参加',pinyin:'cān jiā',meaning:'participate/join',strokes:8,radical:'厶',hsk:3},
+    {char:'草',pinyin:'cǎo',meaning:'grass',strokes:9,radical:'艹',hsk:3},
+    {char:'层',pinyin:'céng',meaning:'layer/floor',strokes:7,radical:'尸',hsk:3},
+    {char:'差',pinyin:'chà',meaning:'differ/poor',strokes:9,radical:'工',hsk:3},
+    {char:'超市',pinyin:'chāo shì',meaning:'supermarket',strokes:12,radical:'走',hsk:3},
+  ].filter((v,i,a)=>a.findIndex(x=>x.char===v.char)===i),
+  top100: [
+    {char:'的',pinyin:'de',meaning:'of, possessive particle',strokes:8,radical:'白',hsk:1},
+    {char:'一',pinyin:'yī',meaning:'one',strokes:1,radical:'一',hsk:1},
+    {char:'是',pinyin:'shì',meaning:'to be, yes',strokes:9,radical:'日',hsk:1},
+    {char:'在',pinyin:'zài',meaning:'at, in, on',strokes:6,radical:'土',hsk:1},
+    {char:'不',pinyin:'bù',meaning:'not, no',strokes:4,radical:'一',hsk:1},
+    {char:'了',pinyin:'le',meaning:'completion particle',strokes:2,radical:'乙',hsk:1},
+    {char:'有',pinyin:'yǒu',meaning:'to have, there is',strokes:6,radical:'月',hsk:1},
+    {char:'和',pinyin:'hé',meaning:'and, with',strokes:8,radical:'口',hsk:1},
+    {char:'人',pinyin:'rén',meaning:'person, people',strokes:2,radical:'人',hsk:1},
+    {char:'这',pinyin:'zhè',meaning:'this',strokes:7,radical:'辶',hsk:1},
+    {char:'中',pinyin:'zhōng',meaning:'middle, center, China',strokes:4,radical:'丨',hsk:1},
+    {char:'大',pinyin:'dà',meaning:'big, large',strokes:3,radical:'大',hsk:1},
+    {char:'为',pinyin:'wéi',meaning:'for, as, to be',strokes:4,radical:'丶',hsk:1},
+    {char:'上',pinyin:'shàng',meaning:'up, above, on',strokes:3,radical:'一',hsk:1},
+    {char:'个',pinyin:'gè',meaning:'measure word',strokes:3,radical:'人',hsk:1},
+    {char:'国',pinyin:'guó',meaning:'country, nation',strokes:8,radical:'囗',hsk:1},
+    {char:'我',pinyin:'wǒ',meaning:'I, me',strokes:7,radical:'戈',hsk:1},
+    {char:'以',pinyin:'yǐ',meaning:'with, by means of',strokes:4,radical:'人',hsk:2},
+    {char:'要',pinyin:'yào',meaning:'to want, need, must',strokes:9,radical:'覀',hsk:1},
+    {char:'他',pinyin:'tā',meaning:'he, him',strokes:5,radical:'亻',hsk:1},
+    {char:'时',pinyin:'shí',meaning:'time, when',strokes:7,radical:'日',hsk:1},
+    {char:'来',pinyin:'lái',meaning:'to come',strokes:7,radical:'木',hsk:1},
+    {char:'用',pinyin:'yòng',meaning:'to use',strokes:5,radical:'用',hsk:1},
+    {char:'们',pinyin:'men',meaning:'plural marker',strokes:5,radical:'亻',hsk:1},
+    {char:'生',pinyin:'shēng',meaning:'to be born, life',strokes:5,radical:'生',hsk:1},
+    {char:'到',pinyin:'dào',meaning:'to arrive, to',strokes:8,radical:'刀',hsk:1},
+    {char:'作',pinyin:'zuò',meaning:'to make, work',strokes:7,radical:'亻',hsk:2},
+    {char:'地',pinyin:'dì',meaning:'earth, ground',strokes:6,radical:'土',hsk:1},
+    {char:'于',pinyin:'yú',meaning:'at, in, on',strokes:3,radical:'二',hsk:3},
+    {char:'出',pinyin:'chū',meaning:'to go out, exit',strokes:5,radical:'凵',hsk:1},
+    {char:'就',pinyin:'jiù',meaning:'then, just, immediately',strokes:12,radical:'京',hsk:1},
+    {char:'分',pinyin:'fēn',meaning:'to divide, minute',strokes:4,radical:'刀',hsk:1},
+    {char:'对',pinyin:'duì',meaning:'correct, pair',strokes:5,radical:'又',hsk:1},
+    {char:'成',pinyin:'chéng',meaning:'to become, succeed',strokes:6,radical:'戈',hsk:2},
+    {char:'会',pinyin:'huì',meaning:'can, will, meeting',strokes:6,radical:'人',hsk:1},
+    {char:'可',pinyin:'kě',meaning:'can, may',strokes:5,radical:'口',hsk:1},
+    {char:'主',pinyin:'zhǔ',meaning:'main, master',strokes:5,radical:'丶',hsk:2},
+    {char:'发',pinyin:'fā',meaning:'to send, hair',strokes:5,radical:'又',hsk:1},
+    {char:'年',pinyin:'nián',meaning:'year',strokes:6,radical:'干',hsk:1},
+    {char:'动',pinyin:'dòng',meaning:'to move, action',strokes:6,radical:'力',hsk:1},
+    {char:'同',pinyin:'tóng',meaning:'same, together',strokes:6,radical:'口',hsk:2},
+    {char:'工',pinyin:'gōng',meaning:'work, worker',strokes:3,radical:'工',hsk:1},
+    {char:'也',pinyin:'yě',meaning:'also, too',strokes:3,radical:'乙',hsk:1},
+    {char:'能',pinyin:'néng',meaning:'can, ability',strokes:10,radical:'厶',hsk:1},
+    {char:'下',pinyin:'xià',meaning:'down, below',strokes:3,radical:'一',hsk:1},
+    {char:'过',pinyin:'guò',meaning:'to pass, past',strokes:6,radical:'辶',hsk:1},
+    {char:'子',pinyin:'zǐ',meaning:'child, son',strokes:3,radical:'子',hsk:1},
+    {char:'说',pinyin:'shuō',meaning:'to speak, say',strokes:9,radical:'讠',hsk:1},
+    {char:'产',pinyin:'chǎn',meaning:'to produce, product',strokes:6,radical:'亠',hsk:2},
+    {char:'种',pinyin:'zhǒng',meaning:'kind, type, seed',strokes:9,radical:'禾',hsk:2},
+    {char:'面',pinyin:'miàn',meaning:'face, surface, noodles',strokes:9,radical:'面',hsk:1},
+    {char:'而',pinyin:'ér',meaning:'and, but',strokes:6,radical:'而',hsk:2},
+    {char:'方',pinyin:'fāng',meaning:'direction, square, method',strokes:4,radical:'方',hsk:1},
+    {char:'后',pinyin:'hòu',meaning:'after, behind',strokes:6,radical:'口',hsk:1},
+    {char:'多',pinyin:'duō',meaning:'many, much',strokes:6,radical:'夕',hsk:1},
+    {char:'定',pinyin:'dìng',meaning:'to decide, fixed',strokes:8,radical:'宀',hsk:2},
+    {char:'行',pinyin:'xíng',meaning:'to walk, line, OK',strokes:6,radical:'彳',hsk:1},
+    {char:'学',pinyin:'xué',meaning:'to learn, study',strokes:8,radical:'子',hsk:1},
+    {char:'法',pinyin:'fǎ',meaning:'method, law',strokes:8,radical:'氵',hsk:2},
+    {char:'所',pinyin:'suǒ',meaning:'place, that which',strokes:8,radical:'户',hsk:2},
+    {char:'民',pinyin:'mín',meaning:'people, citizen',strokes:5,radical:'氏',hsk:2},
+    {char:'得',pinyin:'dé',meaning:'to get, obtain',strokes:11,radical:'彳',hsk:1},
+    {char:'经',pinyin:'jīng',meaning:'to pass, experience',strokes:8,radical:'纟',hsk:2},
+    {char:'十',pinyin:'shí',meaning:'ten',strokes:2,radical:'十',hsk:1},
+    {char:'三',pinyin:'sān',meaning:'three',strokes:3,radical:'一',hsk:1},
+    {char:'之',pinyin:'zhī',meaning:'of, it',strokes:3,radical:'丶',hsk:3},
+    {char:'进',pinyin:'jìn',meaning:'to enter, advance',strokes:7,radical:'辶',hsk:1},
+    {char:'着',pinyin:'zhe',meaning:'ongoing action particle',strokes:11,radical:'羊',hsk:2},
+    {char:'等',pinyin:'děng',meaning:'to wait, etc.',strokes:12,radical:'竹',hsk:1},
+    {char:'部',pinyin:'bù',meaning:'part, department',strokes:10,radical:'邑',hsk:2},
+    {char:'度',pinyin:'dù',meaning:'degree, measure',strokes:9,radical:'广',hsk:2},
+    {char:'家',pinyin:'jiā',meaning:'home, family',strokes:10,radical:'宀',hsk:1},
+    {char:'电',pinyin:'diàn',meaning:'electricity',strokes:5,radical:'田',hsk:1},
+    {char:'力',pinyin:'lì',meaning:'power, strength',strokes:2,radical:'力',hsk:2},
+    {char:'里',pinyin:'lǐ',meaning:'inside, mile',strokes:7,radical:'里',hsk:1},
+    {char:'如',pinyin:'rú',meaning:'if, like',strokes:6,radical:'女',hsk:2},
+    {char:'水',pinyin:'shuǐ',meaning:'water',strokes:4,radical:'水',hsk:1},
+    {char:'化',pinyin:'huà',meaning:'to change, transform',strokes:4,radical:'亻',hsk:2},
+    {char:'高',pinyin:'gāo',meaning:'high, tall',strokes:10,radical:'高',hsk:1},
+    {char:'自',pinyin:'zì',meaning:'self, from',strokes:6,radical:'自',hsk:2},
+    {char:'二',pinyin:'èr',meaning:'two',strokes:2,radical:'二',hsk:1},
+    {char:'理',pinyin:'lǐ',meaning:'reason, principle',strokes:11,radical:'王',hsk:2},
+    {char:'起',pinyin:'qǐ',meaning:'to rise, start',strokes:10,radical:'走',hsk:1},
+    {char:'小',pinyin:'xiǎo',meaning:'small, little',strokes:3,radical:'小',hsk:1},
+    {char:'物',pinyin:'wù',meaning:'thing, object',strokes:8,radical:'牛',hsk:2},
+    {char:'现',pinyin:'xiàn',meaning:'now, appear',strokes:8,radical:'王',hsk:1},
+    {char:'实',pinyin:'shí',meaning:'real, actual',strokes:8,radical:'宀',hsk:2},
+    {char:'加',pinyin:'jiā',meaning:'to add, plus',strokes:5,radical:'力',hsk:1},
+    {char:'量',pinyin:'liàng',meaning:'quantity, measure',strokes:12,radical:'里',hsk:2},
+    {char:'都',pinyin:'dōu',meaning:'all, capital city',strokes:10,radical:'邑',hsk:1},
+    {char:'两',pinyin:'liǎng',meaning:'two, both',strokes:7,radical:'一',hsk:1},
+    {char:'体',pinyin:'tǐ',meaning:'body, form',strokes:7,radical:'亻',hsk:2},
+    {char:'制',pinyin:'zhì',meaning:'to make, system',strokes:8,radical:'刀',hsk:3},
+    {char:'机',pinyin:'jī',meaning:'machine, opportunity',strokes:6,radical:'木',hsk:1},
+    {char:'当',pinyin:'dāng',meaning:'when, should',strokes:6,radical:'彐',hsk:2},
+    {char:'使',pinyin:'shǐ',meaning:'to use, make',strokes:8,radical:'亻',hsk:2},
+    {char:'点',pinyin:'diǎn',meaning:'point, dot, oclock',strokes:9,radical:'灬',hsk:1},
+    {char:'从',pinyin:'cóng',meaning:'from, follow',strokes:4,radical:'人',hsk:2},
+    {char:'业',pinyin:'yè',meaning:'industry, business',strokes:5,radical:'一',hsk:2},
+    {char:'本',pinyin:'běn',meaning:'book, root, origin',strokes:5,radical:'木',hsk:1},
+  ],
+  radicals: [
+    {char:'人',pinyin:'rén',meaning:'person (radical)',strokes:2,radical:'人',hsk:1},
+    {char:'亻',pinyin:'rén',meaning:'person (variant)',strokes:2,radical:'亻',hsk:'-'},
+    {char:'口',pinyin:'kǒu',meaning:'mouth',strokes:3,radical:'口',hsk:1},
+    {char:'日',pinyin:'rì',meaning:'sun/day',strokes:4,radical:'日',hsk:1},
+    {char:'月',pinyin:'yuè',meaning:'moon/month',strokes:4,radical:'月',hsk:1},
+    {char:'山',pinyin:'shān',meaning:'mountain',strokes:3,radical:'山',hsk:1},
+    {char:'水',pinyin:'shuǐ',meaning:'water',strokes:4,radical:'水',hsk:1},
+    {char:'氵',pinyin:'shuǐ',meaning:'water (variant)',strokes:3,radical:'氵',hsk:'-'},
+    {char:'火',pinyin:'huǒ',meaning:'fire',strokes:4,radical:'火',hsk:1},
+    {char:'灬',pinyin:'huǒ',meaning:'fire (bottom)',strokes:4,radical:'灬',hsk:'-'},
+    {char:'木',pinyin:'mù',meaning:'wood/tree',strokes:4,radical:'木',hsk:1},
+    {char:'金',pinyin:'jīn',meaning:'metal/gold',strokes:8,radical:'金',hsk:2},
+    {char:'钅',pinyin:'jīn',meaning:'metal (variant)',strokes:5,radical:'钅',hsk:'-'},
+    {char:'土',pinyin:'tǔ',meaning:'earth/soil',strokes:3,radical:'土',hsk:1},
+    {char:'手',pinyin:'shǒu',meaning:'hand',strokes:4,radical:'手',hsk:1},
+    {char:'扌',pinyin:'shǒu',meaning:'hand (variant)',strokes:3,radical:'扌',hsk:'-'},
+    {char:'心',pinyin:'xīn',meaning:'heart/mind',strokes:4,radical:'心',hsk:1},
+    {char:'忄',pinyin:'xīn',meaning:'heart (variant)',strokes:3,radical:'忄',hsk:'-'},
+    {char:'女',pinyin:'nǚ',meaning:'female/woman',strokes:3,radical:'女',hsk:1},
+    {char:'子',pinyin:'zǐ',meaning:'child/son',strokes:3,radical:'子',hsk:1},
+    {char:'目',pinyin:'mù',meaning:'eye',strokes:5,radical:'目',hsk:2},
+    {char:'耳',pinyin:'ěr',meaning:'ear',strokes:6,radical:'耳',hsk:1},
+    {char:'足',pinyin:'zú',meaning:'foot',strokes:7,radical:'足',hsk:2},
+    {char:'讠',pinyin:'yán',meaning:'speech (variant)',strokes:2,radical:'讠',hsk:'-'},
+    {char:'言',pinyin:'yán',meaning:'speech/word',strokes:7,radical:'言',hsk:2},
+    {char:'草',pinyin:'cǎo',meaning:'grass (艹 radical)',strokes:9,radical:'艹',hsk:2},
+    {char:'虫',pinyin:'chóng',meaning:'insect',strokes:6,radical:'虫',hsk:2},
+    {char:'鸟',pinyin:'niǎo',meaning:'bird',strokes:5,radical:'鸟',hsk:1},
+    {char:'鱼',pinyin:'yú',meaning:'fish',strokes:8,radical:'鱼',hsk:1},
+    {char:'门',pinyin:'mén',meaning:'door/gate',strokes:3,radical:'门',hsk:1},
+    {char:'宀',pinyin:'mián',meaning:'roof radical',strokes:3,radical:'宀',hsk:'-'},
+    {char:'力',pinyin:'lì',meaning:'strength/power',strokes:2,radical:'力',hsk:2},
+    {char:'刀',pinyin:'dāo',meaning:'knife',strokes:2,radical:'刀',hsk:2},
+    {char:'弓',pinyin:'gōng',meaning:'bow (weapon)',strokes:3,radical:'弓',hsk:3},
+    {char:'糸',pinyin:'mì',meaning:'silk/thread',strokes:6,radical:'糸',hsk:'-'},
+    {char:'纟',pinyin:'sī',meaning:'silk (variant)',strokes:3,radical:'纟',hsk:'-'},
+  ],
+};
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let currentLevel = 'top100';
+let currentIdx = 0;
+let strokes = [];
+let currentStroke = null;
+let ghostOn = true;
+let gridOn = true;
+let mastery = {}; // char -> 0..3
+let sessionPracticed = new Set();
+let sessionMastered = new Set();
+
+function getChars() { return DB[currentLevel] || []; }
+function currentChar() { return getChars()[currentIdx]; }
+
+// ══════════════════════════════════════════
+//  CANVAS
+// ══════════════════════════════════════════
+const canvas = document.getElementById('drawCanvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvasWrap');
+const ghost = document.getElementById('ghostEl');
+
+function resizeCanvas() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const cellSize = Math.min(Math.floor(Math.min(vw - 440, vh - 180)), 360);
+  const cell = Math.max(cellSize, 200);
+
+  const item = currentChar();
+  const charLen = item ? [...item.char].length : 1;
+  const cols = Math.min(charLen, 4); // max 4 wide before wrapping
+  const rows = Math.ceil(charLen / 4);
+
+  const W = cell * cols;
+  const H = cell * rows;
+
+  wrap.style.width = W + 'px';
+  wrap.style.height = H + 'px';
+  canvas.width = W;
+  canvas.height = H;
+
+  // Ghost: fit all characters in a single line, font sized to cell height
+  ghost.style.fontSize = (cell * 0.72) + 'px';
+  ghost.style.lineHeight = '1';
+  ghost.style.letterSpacing = '0.02em';
+  ghost.style.flexWrap = 'wrap';
+  ghost.style.whiteSpace = rows > 1 ? 'normal' : 'nowrap';
+
+  drawGridSvg(W, H, cell);
+  redraw();
+}
+
+function drawGridSvg(W, H, cell) {
+  const svg = document.getElementById('gridSvg');
+  let html = '';
+  const cols = Math.round(W / cell);
+  const rows = Math.round(H / cell);
+  const arrowColor = 'rgba(160,80,60,0.9)';
+  const margin = cell * 0.1;
+  const innerW = cell - margin*2;
+  const innerH = cell - margin*2;
+
+  for (let col = 0; col < cols; col++) {
+    for (let row = 0; row < rows; row++) {
+      const ox = col * cell;
+      const oy = row * cell;
+      const step = cell / 4;
+
+      // Sub-grid lines
+      for (let x = step; x < cell; x += step) {
+        html += `<line x1="${ox+x}" y1="${oy}" x2="${ox+x}" y2="${oy+cell}" stroke="rgba(160,120,60,0.09)" stroke-width="0.5"/>`;
+      }
+      for (let y = step; y < cell; y += step) {
+        html += `<line x1="${ox}" y1="${oy+y}" x2="${ox+cell}" y2="${oy+y}" stroke="rgba(160,120,60,0.09)" stroke-width="0.5"/>`;
+      }
+      // Center cross
+      html += `<line x1="${ox+cell/2}" y1="${oy}" x2="${ox+cell/2}" y2="${oy+cell}" stroke="rgba(160,120,60,0.2)" stroke-width="1"/>`;
+      html += `<line x1="${ox}" y1="${oy+cell/2}" x2="${ox+cell}" y2="${oy+cell/2}" stroke="rgba(160,120,60,0.2)" stroke-width="1"/>`;
+      // Diagonals
+      html += `<line x1="${ox}" y1="${oy}" x2="${ox+cell}" y2="${oy+cell}" stroke="rgba(160,120,60,0.08)" stroke-width="0.5"/>`;
+      html += `<line x1="${ox+cell}" y1="${oy}" x2="${ox}" y2="${oy+cell}" stroke="rgba(160,120,60,0.08)" stroke-width="0.5"/>`;
+      // Cell border
+      html += `<rect x="${ox+0.5}" y="${oy+0.5}" width="${cell-1}" height="${cell-1}" fill="none" stroke="rgba(154,125,58,0.3)" stroke-width="1"/>`;
+      const lx = ox + cell - 4;
+      const ly = oy + cell - 4;
+    }
+  }
+  // Outer border
+  html += `<rect x="1" y="1" width="${W-2}" height="${H-2}" fill="none" stroke="rgba(154,125,58,0.5)" stroke-width="1.5"/>`;
+  svg.innerHTML = html;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.display = gridOn ? '' : 'none';
+}
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const src = e.touches ? e.touches[0] : e;
+  return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+}
+
+canvas.addEventListener('mousedown', e => {
+  e.preventDefault();
+  currentStroke = [getPos(e)];
+});
+canvas.addEventListener('mousemove', e => {
+  if (!currentStroke) return;
+  currentStroke.push(getPos(e));
+  redraw();
+  // draw current stroke live
+  drawStroke(currentStroke, getBrush());
+});
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); currentStroke = [getPos(e)]; }, { passive: false });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (!currentStroke) return;
+  currentStroke.push(getPos(e));
+  redraw();
+  drawStroke(currentStroke, getBrush());
+}, { passive: false });
+canvas.addEventListener('touchend', endDraw);
+
+function endDraw() {
+  if (!currentStroke || currentStroke.length < 1) return;
+  strokes.push({ points: currentStroke, size: getBrush() });
+  currentStroke = null;
+  sessionPracticed.add(currentChar().char);
+  document.getElementById('sessionCount').textContent = sessionPracticed.size;
+  redraw();
+}
+
+function getBrush() { return parseInt(document.getElementById('brushSize').value); }
+
+function drawStroke(pts, size) {
+  if (!pts || pts.length === 0) return;
+  ctx.save();
+  ctx.strokeStyle = '#2d2d6b';
+  ctx.lineWidth = size;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const s of strokes) drawStroke(s.points, s.size);
+}
+
+function clearCanvas() { strokes = []; currentStroke = null; redraw(); }
+
+// ══════════════════════════════════════════
+//  UI UPDATE
+// ══════════════════════════════════════════
+function updateUI() {
+  const item = currentChar();
+  if (!item) return;
+  const c = item.char;
+  resizeCanvas();
+  updateYTPanel();
+
+  // Reference
+  const refEl = document.getElementById('refChar');
+  refEl.textContent = c;
+  // Scale reference font based on char count
+  const clen = [...c].length;
+  const baseFs = clen <= 1 ? 110 : clen <= 2 ? 60 : clen <= 3 ? 40 : 30;
+  refEl.style.fontSize = baseFs + 'px';
+  refEl.style.letterSpacing = clen > 1 ? '0.02em' : '';
+  document.getElementById('refPinyin').textContent = item.pinyin;
+  document.getElementById('refMeaning').textContent = item.meaning;
+
+  // Ghost
+  ghost.textContent = ghostOn ? c : '';
+
+  // Right panel
+  document.getElementById('rpChar').textContent = c;
+  document.getElementById('rpPinyin').textContent = item.pinyin;
+  document.getElementById('rpStrokes').textContent = item.strokes || '?';
+  document.getElementById('rpRadical').textContent = item.radical || '-';
+  document.getElementById('rpHSK').textContent = item.hsk || '-';
+  document.getElementById('rpMeaning').textContent = item.meaning;
+
+  // Mastery
+  const m = mastery[c] || 0;
+  const pct = Math.round(m / 3 * 100);
+  document.getElementById('masteryPct').textContent = pct + '%';
+  document.getElementById('masteryFill').style.width = pct + '%';
+
+  // Stroke hint
+  const hints = ['Write the character below, following the guide lines.',
+    'Stroke order: top→bottom, left→right. Horizontal before vertical (usually).',
+    'Tip: Write the enclosing box last in most characters.',
+    'Practice the character until it feels natural!'];
+
+  // Progress
+  const total = getChars().length;
+  const done = Object.keys(mastery).filter(k => mastery[k] >= 1 && getChars().some(x => x.char === k)).length;
+  document.getElementById('progressTxt').textContent = `${done}/${total} started`;
+
+  // Grid highlight
+  document.querySelectorAll('.cpill').forEach((el, i) => {
+    el.classList.toggle('active', i === currentIdx);
+  });
+  // Scroll active into view
+  const active = document.querySelector('.cpill.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+function buildGrid(chars) {
+  const grid = document.getElementById('charGrid');
+  grid.innerHTML = '';
+  chars.forEach((item, i) => {
+    const pill = document.createElement('div');
+    pill.className = 'cpill' + (i === currentIdx ? ' active' : '') + (mastery[item.char] ? ' done' : '');
+    pill.textContent = item.char;
+    pill.title = item.pinyin + ' — ' + item.meaning;
+    pill.addEventListener('click', () => {
+      currentIdx = i;
+      clearCanvas();
+      updateUI();
+    });
+    grid.appendChild(pill);
+  });
+}
+
+// ══════════════════════════════════════════
+//  CONTROLS
+// ══════════════════════════════════════════
+document.getElementById('levelSelect').addEventListener('change', function() {
+  currentLevel = this.value;
+  currentIdx = 0;
+  clearCanvas();
+  buildGrid(getChars());
+  updateUI();
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx - 1 + getChars().length) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('nextCharBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('randBtn').addEventListener('click', () => {
+  currentIdx = Math.floor(Math.random() * getChars().length);
+  clearCanvas(); updateUI();
+});
+document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+document.getElementById('clearBtn2').addEventListener('click', clearCanvas);
+document.getElementById('undoBtn').addEventListener('click', () => { strokes.pop(); redraw(); });
+document.getElementById('undoBtn2').addEventListener('click', () => { strokes.pop(); redraw(); });
+
+document.getElementById('brushSize').addEventListener('input', function() {
+  document.getElementById('brushVal').textContent = this.value;
+});
+
+document.getElementById('ghostBtn').addEventListener('click', function() {
+  ghostOn = !ghostOn;
+  this.textContent = '👁 Ghost ' + (ghostOn ? 'ON' : 'OFF');
+  updateUI();
+});
+
+document.getElementById('gridBtn').addEventListener('click', function() {
+  gridOn = !gridOn;
+  this.textContent = '⊞ Grid ' + (gridOn ? 'ON' : 'OFF');
+  resizeCanvas();
+});
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { buildGrid(getChars()); return; }
+  const filtered = getChars().filter(item =>
+    item.char.includes(q) ||
+    item.pinyin.toLowerCase().includes(q) ||
+    item.meaning.toLowerCase().includes(q)
+  );
+  buildGrid(filtered);
+});
+
+function markChar(level) {
+  const c = currentChar().char;
+  mastery[c] = level;
+  if (level >= 2) {
+    sessionMastered.add(c);
+    document.getElementById('masteredCount').textContent = sessionMastered.size;
+  }
+  // Update pill
+  const pills = document.querySelectorAll('.cpill');
+  if (pills[currentIdx]) {
+    pills[currentIdx].classList.toggle('done', level > 0);
+  }
+  updateUI();
+  // Auto next on mastered
+  if (level === 3) {
+    setTimeout(() => {
+      currentIdx = (currentIdx + 1) % getChars().length;
+      clearCanvas(); updateUI();
+    }, 400);
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === 'n') { currentIdx = (currentIdx+1)%getChars().length; clearCanvas(); updateUI(); }
+  if (e.key === 'ArrowLeft' || e.key === 'p') { currentIdx = (currentIdx-1+getChars().length)%getChars().length; clearCanvas(); updateUI(); }
+  if (e.key === 'c' || e.key === 'Delete') clearCanvas();
+  if (e.key === 'z' && (e.ctrlKey || e.metaKey)) { strokes.pop(); redraw(); }
+  if (e.key === 'g') { ghostOn=!ghostOn; document.getElementById('ghostBtn').textContent='👁 Ghost '+(ghostOn?'ON':'OFF'); updateUI(); }
+  if (e.key === '1') markChar(1);
+  if (e.key === '2') markChar(2);
+  if (e.key === '3') markChar(3);
+});
+
+
+// ══════════════════════════════════════════
+//  YOUTUBE VIDEO INTEGRATION
+// ══════════════════════════════════════════
+
+// Specific YouTube video IDs for stroke order (high-quality videos)
+// Channel: WriteMandarin, YellowBridge, Learn Chinese characters etc.
+const YT_STROKE_IDS = {
+  // Numbers
+  '一':'ZreRhldYb20','二':'ZreRhldYb20','三':'ZreRhldYb20','四':'ZreRhldYb20',
+  '五':'ZreRhldYb20','六':'ZreRhldYb20','七':'ZreRhldYb20','八':'ZreRhldYb20',
+  '九':'ZreRhldYb20','十':'ZreRhldYb20',
+};
+
+let currentYTMode = 'stroke';
+
+function getYTSearchQuery(char, mode) {
+  if (mode === 'pronunciation') return encodeURIComponent(char + ' chinese pronunciation mandarin how to say');
+  return encodeURIComponent(char + ' 笔顺 chinese stroke order how to write');
+}
+
+function getYTOpenUrl(char, mode) {
+  return 'https://www.youtube.com/results?search_query=' + getYTSearchQuery(char, mode);
+}
+
+function updateYTPanel() {
+  const item = currentChar();
+  if (!item) return;
+  const char = item.char;
+
+  document.getElementById('ytCharLabel').textContent = char;
+
+  // Build search URLs
+  const strokeUrl = getYTOpenUrl(char, 'stroke');
+  const pronUrl = getYTOpenUrl(char, 'pronunciation');
+
+  document.getElementById('ytLink1').href = strokeUrl;
+  document.getElementById('ytLink2').href = pronUrl;
+  document.getElementById('ytLink3').href = strokeUrl;
+
+  // Update placeholder text and thumbnail
+  const placeholder = document.getElementById('ytPlaceholder');
+  placeholder.style.display = 'flex';
+  document.getElementById('ytPlaceholderText').textContent = 'Click to search stroke order for "' + char + '"';
+  document.getElementById('ytPlaceholderChar').textContent = char;
+
+  // Remove old iframe
+  const wrap = document.getElementById('ytEmbedWrap');
+  const old = wrap.querySelector('iframe');
+  if (old) old.remove();
+
+  // If we have a known video ID, show embed ready to load
+  const vid = YT_STROKE_IDS[char];
+  if (vid) {
+    document.getElementById('ytPlaceholderText').textContent = 'Click ▶ to play stroke order video';
+    placeholder.onclick = () => loadYTEmbed(vid);
+  } else {
+    placeholder.onclick = () => window.open(strokeUrl, '_blank');
+    document.getElementById('ytPlaceholderText').textContent = 'Click to search on YouTube ↗';
+  }
+}
+
+function loadYTEmbed(videoId) {
+  const wrap = document.getElementById('ytEmbedWrap');
+  document.getElementById('ytPlaceholder').style.display = 'none';
+  const old = wrap.querySelector('iframe');
+  if (old) old.remove();
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  iframe.allowFullscreen = true;
+  wrap.appendChild(iframe);
+}
+
+document.getElementById('ytLink1').addEventListener('click', e => {
+  e.preventDefault();
+  window.open(document.getElementById('ytLink1').href, '_blank');
+});
+document.getElementById('ytLink2').addEventListener('click', e => {
+  e.preventDefault();
+  window.open(document.getElementById('ytLink2').href, '_blank');
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+buildGrid(getChars());
+updateUI();
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+</script>
+</body>
+</html>

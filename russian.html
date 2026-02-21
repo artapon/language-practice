@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐻 Мишка учит буквы · Russian for Kids!</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Comfortaa:wght@400;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky:    #e8f4ff;
+  --pink:   #ff6eb4;
+  --yellow: #ffd94a;
+  --green:  #4ecb6e;
+  --blue:   #4ab3f4;
+  --orange: #ff8c42;
+  --purple: #b388ff;
+  --red:    #ff5252;
+  --teal:   #26c6da;
+  --ink:    #2d2d6b;
+  --shadow-card: 0 8px 24px rgba(100,100,200,0.13);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: var(--sky);
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255,110,180,0.2) 0%, transparent 32%),
+    radial-gradient(circle at 92% 8%,  rgba(74,179,244,0.22) 0%, transparent 28%),
+    radial-gradient(circle at 80% 88%, rgba(78,203,110,0.15) 0%, transparent 28%),
+    radial-gradient(circle at 15% 82%, rgba(255,213,74,0.2)  0%, transparent 28%);
+  font-family: 'Nunito', sans-serif;
+  color: var(--ink);
+  display: flex; flex-direction: column;
+  height: 100vh; overflow: hidden;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(135deg, #4ab3f4 0%, #b388ff 55%, #ff6eb4 100%);
+  flex-shrink: 0; gap: 0.5rem; flex-wrap: wrap;
+  box-shadow: 0 4px 18px rgba(74,179,244,0.35);
+  position: relative; z-index: 10;
+}
+.topbar h1 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.4rem; font-weight: 700;
+  color: white; text-shadow: 0 3px 0 rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+.topbar h1 span { color: #fff9c4; }
+.topbar-controls { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+
+.topbar select {
+  background: rgba(255,255,255,0.93);
+  border: 3px solid rgba(255,255,255,0.6);
+  color: var(--ink); font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  padding: 0.3rem 0.6rem; border-radius: 30px;
+  cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+.btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 800;
+  padding: 0.35rem 0.8rem; border-radius: 30px;
+  border: 3px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.22);
+  color: white; cursor: pointer; white-space: nowrap;
+  transition: all 0.15s; box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+.btn:hover { background: rgba(255,255,255,0.4); transform: translateY(-1px); }
+.btn:active { transform: translateY(2px); box-shadow: none; }
+.btn.red { background: var(--red); border-color: #ff8a80; }
+
+.brush-wrap {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.78rem; color: white; font-weight: 700;
+  background: rgba(255,255,255,0.18); border-radius: 30px;
+  padding: 0.2rem 0.6rem; border: 2px solid rgba(255,255,255,0.35);
+}
+input[type=range] { width: 60px; accent-color: white; }
+.progress-txt {
+  font-size: 0.78rem; color: white; font-weight: 800;
+  background: rgba(255,255,255,0.22);
+  padding: 0.2rem 0.7rem; border-radius: 20px; white-space: nowrap;
+}
+
+/* ── LAYOUT ── */
+.app { display: flex; flex: 1; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 210px; flex-shrink: 0;
+  background: white; display: flex; flex-direction: column;
+  overflow: hidden;
+  border-right: 4px solid #d4eeff;
+  box-shadow: 4px 0 16px rgba(74,179,244,0.09);
+}
+.sidebar-header {
+  background: linear-gradient(135deg, #4ab3f4, #b388ff);
+  padding: 0.6rem; color: white;
+  font-family: 'Comfortaa', cursive;
+  font-size: 0.85rem; text-align: center;
+}
+.sidebar-search {
+  padding: 0.5rem; background: #f0f8ff;
+  border-bottom: 3px solid #d4eeff;
+}
+.sidebar-search input {
+  width: 100%; padding: 0.4rem 0.7rem;
+  border: 3px solid #90caf9; border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  background: white; color: var(--ink); outline: none;
+}
+.sidebar-search input:focus { border-color: var(--blue); }
+.char-grid {
+  flex: 1; overflow-y: auto; padding: 0.5rem;
+  display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start;
+  background: #fafeff;
+}
+.char-grid::-webkit-scrollbar { width: 6px; }
+.char-grid::-webkit-scrollbar-thumb { background: #90caf9; border-radius: 10px; }
+.cpill {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.05rem; font-weight: 700;
+  min-width: 38px; height: 38px;
+  padding: 0 4px;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid #bbdefb; border-radius: 12px;
+  cursor: pointer; background: white;
+  transition: all 0.15s; position: relative;
+  box-shadow: 0 3px 0 rgba(74,179,244,0.15);
+  color: var(--ink);
+}
+.cpill:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 5px 0 rgba(74,179,244,0.25);
+  background: #e3f2fd;
+}
+.cpill.active {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white; border-color: transparent;
+  box-shadow: 0 4px 0 rgba(74,179,244,0.35);
+  transform: translateY(-1px);
+}
+.cpill.done::after {
+  content: '⭐'; position: absolute;
+  bottom: -5px; right: -5px;
+  font-size: 0.55rem; line-height: 1;
+}
+
+/* ── CENTER ── */
+.center {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.9rem; padding: 0.8rem 0.8rem 1.8rem;
+  overflow: auto;
+}
+.practice-row {
+  display: flex; gap: 1.5rem;
+  align-items: flex-start; flex-wrap: wrap; justify-content: center;
+}
+
+/* ── REFERENCE BOX ── */
+.ref-box { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.box-label {
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: white; padding: 0.22rem 0.9rem;
+  border-radius: 20px; box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+.box-label.blue  { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+.box-label.teal  { background: linear-gradient(135deg, var(--teal), var(--blue)); }
+
+.ref-char {
+  min-width: 170px; height: 170px; max-width: 420px;
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--blue), var(--purple), var(--pink), var(--yellow)) border-box;
+  border-radius: 28px;
+  box-shadow: var(--shadow-card), 0 6px 0 rgba(74,179,244,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Comfortaa', cursive;
+  font-size: 115px; line-height: 1;
+  position: relative; overflow: hidden;
+  padding: 4px 12px;
+  transition: transform 0.25s ease;
+  color: var(--ink);
+}
+.ref-char:hover { transform: scale(1.04) rotate(-1deg); }
+.ref-char::before { content: ''; position: absolute; width: 100%; height: 1px; top: 50%; background: rgba(74,179,244,0.1); }
+.ref-char::after  { content: ''; position: absolute; height: 100%; width: 1px; left: 50%; background: rgba(74,179,244,0.1); }
+
+.both-cases {
+  display: flex; gap: 0.1em; align-items: baseline; line-height: 1;
+}
+.case-upper { font-size: 105px; color: var(--ink); }
+.case-lower { font-size: 68px;  color: var(--blue); }
+
+.ref-info { text-align: center; }
+.ref-translit {
+  font-size: 1.1rem; font-weight: 800; color: var(--purple);
+  letter-spacing: 0.05em;
+}
+.ref-meaning {
+  font-size: 0.82rem; font-weight: 600; color: #6a6a9a;
+  margin-top: 0.2rem; max-width: 210px;
+  background: white; border-radius: 12px;
+  padding: 0.22rem 0.7rem; border: 2px solid #e3f2fd;
+}
+.letter-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
+.badge {
+  font-size: 0.68rem; font-weight: 800;
+  padding: 0.15rem 0.5rem; border-radius: 12px; border: 2px solid transparent;
+}
+.badge.vowel     { background:#fff3e0; color:#e65100; border-color:#ffcc80; }
+.badge.consonant { background:#e3f2fd; color:#0277bd; border-color:#90caf9; }
+.badge.special   { background:#fce4ec; color:#c62828; border-color:#ef9a9a; }
+.badge.number    { background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7; }
+.badge.word      { background:#f3e5f5; color:#6a1b9a; border-color:#ce93d8; }
+
+.ref-nav { display: flex; gap: 0.5rem; }
+.ref-nav button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem; font-weight: 800;
+  padding: 0.4rem 0.9rem; border-radius: 20px;
+  border: 3px solid transparent; cursor: pointer;
+  transition: all 0.15s; box-shadow: 0 4px 0 rgba(0,0,0,0.1); color: white;
+}
+#prevBtn  { background: var(--purple); border-color: #ce93d8; }
+#randBtn  { background: var(--yellow); border-color: #ffe082; color: var(--ink); }
+#nextBtn  { background: var(--teal);   border-color: #80deea; }
+.ref-nav button:hover  { transform: translateY(-2px); filter: brightness(1.08); }
+.ref-nav button:active { transform: translateY(2px); box-shadow: none; }
+
+/* ── CANVAS ── */
+.canvas-box { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
+.canvas-wrap {
+  position: relative;
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--teal), var(--blue), var(--purple)) border-box;
+  border-radius: 24px;
+  box-shadow: var(--shadow-card), 0 6px 0 rgba(38,198,218,0.2);
+  overflow: hidden; cursor: crosshair; touch-action: none;
+}
+.grid-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.ghost {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Comfortaa', cursive;
+  pointer-events: none; z-index: 0;
+  user-select: none; color: rgba(74,179,244,0.1);
+  line-height: 1; overflow: hidden;
+}
+canvas { position: absolute; inset: 0; z-index: 2; display: block; }
+
+.canvas-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.canvas-btns button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 800;
+  padding: 0.4rem 0.9rem; border-radius: 20px;
+  border: 3px solid transparent; cursor: pointer;
+  transition: all 0.15s; box-shadow: 0 4px 0 rgba(0,0,0,0.1); color: white;
+}
+#undoBtn2  { background: var(--purple); border-color: #ce93d8; }
+#clearBtn2 { background: var(--orange); border-color: #ffcc80; }
+#nextCharBtn {
+  background: linear-gradient(135deg, var(--teal), var(--blue)) !important;
+  border-color: transparent !important; color: white !important;
+}
+.canvas-btns button:hover  { transform: translateY(-2px); filter: brightness(1.08); }
+.canvas-btns button:active { transform: translateY(2px); box-shadow: none; }
+
+/* ── YOUTUBE ── */
+.yt-panel {
+  background: white; border: 4px solid #d4eeff;
+  border-radius: 20px; overflow: hidden;
+  width: 100%; max-width: 460px;
+  box-shadow: 0 6px 0 rgba(74,179,244,0.15), var(--shadow-card);
+}
+.yt-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.8rem;
+  background: linear-gradient(135deg, #4ab3f4, #b388ff);
+  color: white; gap: 0.4rem; flex-wrap: wrap;
+}
+.yt-header-left { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 800; }
+.yt-char-label {
+  font-family: 'Comfortaa', cursive; font-size: 1.1rem;
+  background: rgba(255,255,255,0.22); padding: 0 0.5rem; border-radius: 8px;
+}
+.yt-links { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.yt-link {
+  font-family: 'Nunito', sans-serif; font-size: 0.68rem; font-weight: 800;
+  padding: 0.2rem 0.5rem; border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.16);
+  color: white; cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: all 0.15s;
+}
+.yt-link:hover { background: rgba(255,255,255,0.32); }
+.yt-link.active-link { background: white; color: var(--blue); border-color: white; }
+.yt-embed-wrap { position: relative; width: 100%; padding-bottom: 52%; background: #f0f8ff; }
+.yt-embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.yt-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #f0f8ff, #f8f0ff);
+  color: var(--blue); font-size: 0.78rem; font-weight: 700;
+  gap: 0.4rem; cursor: pointer;
+}
+.yt-placeholder-char {
+  font-family: 'Comfortaa', cursive; font-size: 3.5rem;
+  color: rgba(74,179,244,0.1);
+  position: absolute; top: 50%; transform: translateY(-60%);
+  pointer-events: none; user-select: none;
+}
+.play-btn {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: white;
+  box-shadow: 0 4px 0 rgba(74,179,244,0.3); z-index: 1;
+  transition: all 0.15s;
+}
+.yt-placeholder:hover .play-btn { transform: scale(1.12); }
+.yt-placeholder span { z-index: 1; color: var(--purple); font-weight: 700; }
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  width: 195px; flex-shrink: 0; background: white;
+  display: flex; flex-direction: column;
+  padding: 0.8rem 0.7rem; gap: 0.65rem; overflow-y: auto;
+  border-left: 4px solid #d4eeff;
+  box-shadow: -4px 0 16px rgba(74,179,244,0.08);
+}
+.right-panel::-webkit-scrollbar { width: 5px; }
+.right-panel::-webkit-scrollbar-thumb { background: #90caf9; border-radius: 10px; }
+
+.rp-title {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: white;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 12px; padding: 0.25rem 0.6rem; text-align: center;
+}
+.rp-char-big {
+  font-family: 'Comfortaa', cursive; text-align: center; line-height: 1;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  border-radius: 16px; padding: 0.4rem; border: 3px solid #bbdefb;
+}
+.rp-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f0f8ff; border-radius: 10px; padding: 0.22rem 0.5rem;
+}
+.rp-key  { font-size: 0.68rem; font-weight: 700; color: #7090b0; }
+.rp-val  { font-size: 0.8rem; font-weight: 800; color: var(--ink); }
+.rp-val.blue   { color: var(--blue); }
+.rp-val.purple { color: var(--purple); }
+
+.mastery-bar-wrap { background: #f0f8ff; border-radius: 12px; padding: 0.4rem 0.5rem; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 700; color: #7090b0; margin-bottom: 0.3rem; }
+.mastery-bar { height: 8px; background: #bbdefb; border-radius: 10px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--purple)); border-radius: 10px; transition: width 0.4s; }
+
+.mark-btns { display: flex; flex-direction: column; gap: 0.4rem; }
+.mark-btns button {
+  font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 800;
+  padding: 0.4rem 0.5rem; border-radius: 14px;
+  border: 3px solid transparent; cursor: pointer;
+  transition: all 0.15s; box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+  background: #f0f8ff; color: var(--ink);
+}
+.mark-btns button:hover  { transform: translateY(-1px); }
+.mark-btns button:active { transform: translateY(2px); box-shadow: none; }
+.mbad  { background: #fff0f0 !important; border-color: #ffcdd2 !important; color: var(--red) !important; }
+.mbad:hover  { background: var(--red)   !important; color: white !important; }
+.mgood { background: #f0fff4 !important; border-color: #c8e6c9 !important; color: var(--green) !important; }
+.mgood:hover { background: var(--green) !important; color: white !important; }
+
+.session-box {
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  border-radius: 14px; padding: 0.5rem 0.6rem;
+  border: 3px solid #bbdefb; margin-top: auto;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes pop-in {
+  0%   { transform: scale(0.75) rotate(-6deg); opacity: 0; }
+  65%  { transform: scale(1.07) rotate(1deg);  opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.ref-char { animation: pop-in 0.3s ease both; }
+
+@keyframes star-pop {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.cpill.done::after { animation: star-pop 0.3s ease both; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .sidebar { width: 130px; }
+  .right-panel { display: none; }
+  .ref-char { min-width: 130px; height: 130px; font-size: 82px; }
+  .cpill { min-width: 32px; height: 32px; font-size: 0.85rem; }
+}
+@media (max-width: 500px) { .sidebar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>🐻 Мишка <span>учит буквы</span></h1>
+  <div class="topbar-controls">
+    <select id="levelSelect">
+      <option value="alphabet"      selected>⭐ Весь алфавит (А–Я)</option>
+      <option value="vowels">🔴 Гласные (10)</option>
+      <option value="consonants">🔵 Согласные (21)</option>
+      <option value="special">✨ Знаки (Ъ Ь)</option>
+      <option value="numbers">🔢 Цифры 0–9</option>
+      <option value="syllables">🗣️ Слоги (МА БА ДА…)</option>
+      <option value="words_easy">📝 Простые слова</option>
+      <option value="words_animals">🐻 Животные</option>
+      <option value="words_family">👨‍👩‍👧 Семья</option>
+      <option value="words_colors">🎨 Цвета</option>
+      <option value="words_food">🍎 Еда</option>
+      <option value="words_body">🫀 Части тела</option>
+      <option value="words_nature">🌿 Природа</option>
+      <option value="words_toys">🧸 Игрушки и игры</option>
+    </select>
+    <label class="brush-wrap">✏️ <input type="range" id="brushSize" min="3" max="30" value="12"> <span id="brushVal">12</span></label>
+    <button class="btn" id="ghostBtn">👻 Призрак</button>
+    <button class="btn" id="gridBtn">⊞ Сетка</button>
+    <button class="btn red" id="clearBtn">🗑 Очистить</button>
+    <button class="btn" id="undoBtn">↩</button>
+    <span class="progress-txt" id="progressTxt"></span>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">✨ Буквы и слова ✨</div>
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="🔍 Поиск…">
+    </div>
+    <div class="char-grid" id="charGrid"></div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="practice-row">
+
+      <!-- Reference -->
+      <div class="ref-box">
+        <span class="box-label blue">📖 Смотри!</span>
+        <div class="ref-char" id="refChar">А</div>
+        <div class="ref-info">
+          <div class="ref-translit" id="refTranslit">[а]</div>
+          <div class="ref-meaning"  id="refMeaning">арбуз 🍉</div>
+        </div>
+        <div class="letter-badges" id="letterBadges"></div>
+        <div class="ref-nav">
+          <button id="prevBtn">◀ Назад</button>
+          <button id="randBtn">🎲 Случайная</button>
+          <button id="nextBtn">Вперёд ▶</button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-box">
+        <span class="box-label teal">✏️ Пиши здесь!</span>
+        <div class="canvas-wrap" id="canvasWrap">
+          <svg class="grid-overlay" id="gridSvg"></svg>
+          <div class="ghost" id="ghostEl"></div>
+          <canvas id="drawCanvas"></canvas>
+        </div>
+
+        <!-- YouTube -->
+        <div class="yt-panel">
+          <div class="yt-header">
+            <div class="yt-header-left">
+              <span>▶</span>
+              <span>Смотри как писать:</span>
+              <span class="yt-char-label" id="ytCharLabel">А</span>
+            </div>
+            <div class="yt-links">
+              <a class="yt-link active-link" id="ytLink1" href="#" target="_blank">✎ Написание</a>
+              <a class="yt-link"             id="ytLink2" href="#" target="_blank">🔤 Звук</a>
+              <a class="yt-link"             id="ytLink3" href="#" target="_blank">↗ YouTube</a>
+            </div>
+          </div>
+          <div class="yt-embed-wrap" id="ytEmbedWrap">
+            <div class="yt-placeholder" id="ytPlaceholder">
+              <div class="yt-placeholder-char" id="ytPlaceholderChar">А</div>
+              <div class="play-btn">▶</div>
+              <span id="ytPlaceholderText">Нажми для поиска видео</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-btns">
+          <button id="undoBtn2">↩ Отменить</button>
+          <button id="clearBtn2">🗑 Очистить</button>
+          <button id="nextCharBtn">Вперёд ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rp-title">🔍 Информация</div>
+    <div class="rp-char-big" id="rpChar" style="font-size:3.5rem">А</div>
+
+    <div class="rp-row"><span class="rp-key">Звук</span>    <span class="rp-val blue"   id="rpTranslit">[а]</span></div>
+    <div class="rp-row"><span class="rp-key">Тип</span>     <span class="rp-val"        id="rpType">гласная</span></div>
+    <div class="rp-row"><span class="rp-key">Номер</span>   <span class="rp-val purple" id="rpNum">1</span></div>
+
+    <div class="rp-key" style="font-size:0.68rem;font-weight:700;color:#7090b0;padding:0 0.2rem">Пример слова</div>
+    <div style="font-size:0.82rem;font-weight:700;line-height:1.5;background:#f0f8ff;border-radius:10px;padding:0.3rem 0.5rem" id="rpMeaning">арбуз 🍉</div>
+
+    <div class="mastery-bar-wrap">
+      <div class="mastery-label"><span>⭐ Прогресс</span><span id="masteryPct">0%</span></div>
+      <div class="mastery-bar"><div class="mastery-fill" id="masteryFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="rp-title">🏅 Как прошло?</div>
+    <div class="mark-btns">
+      <button class="mbad"  onclick="markChar(1)">😕 Ещё раз!</button>
+      <button               onclick="markChar(2)">🙂 Почти!</button>
+      <button class="mgood" onclick="markChar(3)">⭐ Знаю!</button>
+    </div>
+
+    <div class="session-box">
+      <div class="rp-title" style="margin-bottom:0.4rem">🎯 Сегодня</div>
+      <div class="rp-row" style="margin-top:0.3rem"><span class="rp-key">Написано</span><span class="rp-val" id="sessionCount">0</span></div>
+      <div class="rp-row" style="margin-top:0.3rem"><span class="rp-key">Выучено</span> <span class="rp-val" id="masteredCount">0</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATABASE
+// ══════════════════════════════════════════
+const DB = {
+  alphabet: [
+    {char:'А',lower:'а',translit:'[а]',  meaning:'Арбуз 🍉',    type:'гласная',  num:1,  tags:['vowel']},
+    {char:'Б',lower:'б',translit:'[б]',  meaning:'Банан 🍌',    type:'согласная',num:2,  tags:['consonant']},
+    {char:'В',lower:'в',translit:'[в]',  meaning:'Волк 🐺',     type:'согласная',num:3,  tags:['consonant']},
+    {char:'Г',lower:'г',translit:'[г]',  meaning:'Гусь 🪿',     type:'согласная',num:4,  tags:['consonant']},
+    {char:'Д',lower:'д',translit:'[д]',  meaning:'Дом 🏠',      type:'согласная',num:5,  tags:['consonant']},
+    {char:'Е',lower:'е',translit:'[йэ]', meaning:'Ель 🌲',      type:'гласная',  num:6,  tags:['vowel']},
+    {char:'Ё',lower:'ё',translit:'[йо]', meaning:'Ёжик 🦔',     type:'гласная',  num:7,  tags:['vowel']},
+    {char:'Ж',lower:'ж',translit:'[ж]',  meaning:'Жираф 🦒',   type:'согласная',num:8,  tags:['consonant']},
+    {char:'З',lower:'з',translit:'[з]',  meaning:'Зебра 🦓',    type:'согласная',num:9,  tags:['consonant']},
+    {char:'И',lower:'и',translit:'[и]',  meaning:'Иголка 🪡',   type:'гласная',  num:10, tags:['vowel']},
+    {char:'Й',lower:'й',translit:'[й]',  meaning:'Йогурт 🥛',   type:'согласная',num:11, tags:['consonant']},
+    {char:'К',lower:'к',translit:'[к]',  meaning:'Кот 🐱',      type:'согласная',num:12, tags:['consonant']},
+    {char:'Л',lower:'л',translit:'[л]',  meaning:'Лиса 🦊',     type:'согласная',num:13, tags:['consonant']},
+    {char:'М',lower:'м',translit:'[м]',  meaning:'Мама 👩',     type:'согласная',num:14, tags:['consonant']},
+    {char:'Н',lower:'н',translit:'[н]',  meaning:'Нос 👃',      type:'согласная',num:15, tags:['consonant']},
+    {char:'О',lower:'о',translit:'[о]',  meaning:'Облако ☁️',   type:'гласная',  num:16, tags:['vowel']},
+    {char:'П',lower:'п',translit:'[п]',  meaning:'Папа 👨',     type:'согласная',num:17, tags:['consonant']},
+    {char:'Р',lower:'р',translit:'[р]',  meaning:'Рыба 🐟',     type:'согласная',num:18, tags:['consonant']},
+    {char:'С',lower:'с',translit:'[с]',  meaning:'Слон 🐘',     type:'согласная',num:19, tags:['consonant']},
+    {char:'Т',lower:'т',translit:'[т]',  meaning:'Тигр 🐯',     type:'согласная',num:20, tags:['consonant']},
+    {char:'У',lower:'у',translit:'[у]',  meaning:'Утка 🦆',     type:'гласная',  num:21, tags:['vowel']},
+    {char:'Ф',lower:'ф',translit:'[ф]',  meaning:'Фламинго 🦩', type:'согласная',num:22, tags:['consonant']},
+    {char:'Х',lower:'х',translit:'[х]',  meaning:'Хлеб 🍞',     type:'согласная',num:23, tags:['consonant']},
+    {char:'Ц',lower:'ц',translit:'[ц]',  meaning:'Цыплёнок 🐥', type:'согласная',num:24, tags:['consonant']},
+    {char:'Ч',lower:'ч',translit:'[ч]',  meaning:'Черепаха 🐢', type:'согласная',num:25, tags:['consonant']},
+    {char:'Ш',lower:'ш',translit:'[ш]',  meaning:'Шарик 🎈',   type:'согласная',num:26, tags:['consonant']},
+    {char:'Щ',lower:'щ',translit:'[щ]',  meaning:'Щенок 🐶',   type:'согласная',num:27, tags:['consonant']},
+    {char:'Ъ',lower:'ъ',translit:'[ъ]',  meaning:'Твёрдый знак',type:'знак',    num:28, tags:['special']},
+    {char:'Ы',lower:'ы',translit:'[ы]',  meaning:'Рыба 🐟',     type:'гласная',  num:29, tags:['vowel']},
+    {char:'Ь',lower:'ь',translit:'[ь]',  meaning:'Мягкий знак', type:'знак',    num:30, tags:['special']},
+    {char:'Э',lower:'э',translit:'[э]',  meaning:'Эхо 📣',      type:'гласная',  num:31, tags:['vowel']},
+    {char:'Ю',lower:'ю',translit:'[йу]', meaning:'Юла 🌀',      type:'гласная',  num:32, tags:['vowel']},
+    {char:'Я',lower:'я',translit:'[йа]', meaning:'Яблоко 🍎',   type:'гласная',  num:33, tags:['vowel']},
+  ],
+
+  vowels: [
+    {char:'А',lower:'а',translit:'[а]', meaning:'Арбуз 🍉',  type:'гласная',num:1, tags:['vowel']},
+    {char:'Е',lower:'е',translit:'[йэ]',meaning:'Ель 🌲',    type:'гласная',num:6, tags:['vowel']},
+    {char:'Ё',lower:'ё',translit:'[йо]',meaning:'Ёжик 🦔',   type:'гласная',num:7, tags:['vowel']},
+    {char:'И',lower:'и',translit:'[и]', meaning:'Иволга 🐦', type:'гласная',num:10,tags:['vowel']},
+    {char:'О',lower:'о',translit:'[о]', meaning:'Облако ☁️', type:'гласная',num:16,tags:['vowel']},
+    {char:'У',lower:'у',translit:'[у]', meaning:'Утка 🦆',   type:'гласная',num:21,tags:['vowel']},
+    {char:'Ы',lower:'ы',translit:'[ы]', meaning:'Мышь 🐭',   type:'гласная',num:29,tags:['vowel']},
+    {char:'Э',lower:'э',translit:'[э]', meaning:'Эхо 📣',    type:'гласная',num:31,tags:['vowel']},
+    {char:'Ю',lower:'ю',translit:'[йу]',meaning:'Юла 🌀',    type:'гласная',num:32,tags:['vowel']},
+    {char:'Я',lower:'я',translit:'[йа]',meaning:'Яблоко 🍎', type:'гласная',num:33,tags:['vowel']},
+  ],
+
+  consonants: [
+    {char:'Б',lower:'б',translit:'[б]',meaning:'Банан 🍌',    type:'согласная',num:2, tags:['consonant']},
+    {char:'В',lower:'в',translit:'[в]',meaning:'Волк 🐺',     type:'согласная',num:3, tags:['consonant']},
+    {char:'Г',lower:'г',translit:'[г]',meaning:'Гусь 🪿',     type:'согласная',num:4, tags:['consonant']},
+    {char:'Д',lower:'д',translit:'[д]',meaning:'Дом 🏠',      type:'согласная',num:5, tags:['consonant']},
+    {char:'Ж',lower:'ж',translit:'[ж]',meaning:'Жираф 🦒',   type:'согласная',num:8, tags:['consonant']},
+    {char:'З',lower:'з',translit:'[з]',meaning:'Зебра 🦓',    type:'согласная',num:9, tags:['consonant']},
+    {char:'Й',lower:'й',translit:'[й]',meaning:'Йогурт 🥛',   type:'согласная',num:11,tags:['consonant']},
+    {char:'К',lower:'к',translit:'[к]',meaning:'Кот 🐱',      type:'согласная',num:12,tags:['consonant']},
+    {char:'Л',lower:'л',translit:'[л]',meaning:'Лиса 🦊',     type:'согласная',num:13,tags:['consonant']},
+    {char:'М',lower:'м',translit:'[м]',meaning:'Мама 👩',     type:'согласная',num:14,tags:['consonant']},
+    {char:'Н',lower:'н',translit:'[н]',meaning:'Нос 👃',      type:'согласная',num:15,tags:['consonant']},
+    {char:'П',lower:'п',translit:'[п]',meaning:'Папа 👨',     type:'согласная',num:17,tags:['consonant']},
+    {char:'Р',lower:'р',translit:'[р]',meaning:'Рыба 🐟',     type:'согласная',num:18,tags:['consonant']},
+    {char:'С',lower:'с',translit:'[с]',meaning:'Слон 🐘',     type:'согласная',num:19,tags:['consonant']},
+    {char:'Т',lower:'т',translit:'[т]',meaning:'Тигр 🐯',     type:'согласная',num:20,tags:['consonant']},
+    {char:'Ф',lower:'ф',translit:'[ф]',meaning:'Фламинго 🦩', type:'согласная',num:22,tags:['consonant']},
+    {char:'Х',lower:'х',translit:'[х]',meaning:'Хлеб 🍞',     type:'согласная',num:23,tags:['consonant']},
+    {char:'Ц',lower:'ц',translit:'[ц]',meaning:'Цыплёнок 🐥', type:'согласная',num:24,tags:['consonant']},
+    {char:'Ч',lower:'ч',translit:'[ч]',meaning:'Черепаха 🐢', type:'согласная',num:25,tags:['consonant']},
+    {char:'Ш',lower:'ш',translit:'[ш]',meaning:'Шарик 🎈',   type:'согласная',num:26,tags:['consonant']},
+    {char:'Щ',lower:'щ',translit:'[щ]',meaning:'Щенок 🐶',   type:'согласная',num:27,tags:['consonant']},
+  ],
+
+  special: [
+    {char:'Ъ',lower:'ъ',translit:'[ъ]',meaning:'Твёрдый знак — разделяет слоги',type:'знак',num:28,tags:['special']},
+    {char:'Ь',lower:'ь',translit:'[ь]',meaning:'Мягкий знак — смягчает согласные',type:'знак',num:30,tags:['special']},
+  ],
+
+  numbers: [
+    {char:'0',lower:'0',translit:'ноль',  meaning:'ноль — нет ничего 🫙',      type:'цифра',num:0,tags:['number']},
+    {char:'1',lower:'1',translit:'один',  meaning:'один — одно яблоко 🍎',     type:'цифра',num:1,tags:['number']},
+    {char:'2',lower:'2',translit:'два',   meaning:'два — две ноги 🦵🦵',       type:'цифра',num:2,tags:['number']},
+    {char:'3',lower:'3',translit:'три',   meaning:'три — три медведя 🐻🐻🐻', type:'цифра',num:3,tags:['number']},
+    {char:'4',lower:'4',translit:'четыре',meaning:'четыре — четыре лапы 🐾',  type:'цифра',num:4,tags:['number']},
+    {char:'5',lower:'5',translit:'пять',  meaning:'пять — пять пальцев ✋',    type:'цифра',num:5,tags:['number']},
+    {char:'6',lower:'6',translit:'шесть', meaning:'шесть — кубики на кубике 🎲',type:'цифра',num:6,tags:['number']},
+    {char:'7',lower:'7',translit:'семь',  meaning:'семь — цветов радуги 🌈',   type:'цифра',num:7,tags:['number']},
+    {char:'8',lower:'8',translit:'восемь',meaning:'восемь — щупалец 🐙',       type:'цифра',num:8,tags:['number']},
+    {char:'9',lower:'9',translit:'девять',meaning:'девять — шариков 🎈🎈🎈',  type:'цифра',num:9,tags:['number']},
+  ],
+
+  syllables: [
+    {char:'МА',lower:'ма',translit:'МА',meaning:'МА-ма 👩',     type:'слог',num:1,tags:['word']},
+    {char:'ПА',lower:'па',translit:'ПА',meaning:'ПА-па 👨',     type:'слог',num:2,tags:['word']},
+    {char:'БА',lower:'ба',translit:'БА',meaning:'БА-буш-ка 👵', type:'слог',num:3,tags:['word']},
+    {char:'ДА',lower:'да',translit:'ДА',meaning:'ДА — yes ✅',   type:'слог',num:4,tags:['word']},
+    {char:'НА',lower:'на',translit:'НА',meaning:'НА — here 👋',  type:'слог',num:5,tags:['word']},
+    {char:'КА',lower:'ка',translit:'КА',meaning:'КА-ша 🥣',     type:'слог',num:6,tags:['word']},
+    {char:'ВО',lower:'во',translit:'ВО',meaning:'ВО-да 💧',     type:'слог',num:7,tags:['word']},
+    {char:'РЫ',lower:'ры',translit:'РЫ',meaning:'РЫ-ба 🐟',    type:'слог',num:8,tags:['word']},
+    {char:'ДО',lower:'до',translit:'ДО',meaning:'ДОМ 🏠',       type:'слог',num:9,tags:['word']},
+    {char:'МИ',lower:'ми',translit:'МИ',meaning:'МИ-шка 🐻',    type:'слог',num:10,tags:['word']},
+    {char:'ЛИ',lower:'ли',translit:'ЛИ',meaning:'ЛИ-са 🦊',    type:'слог',num:11,tags:['word']},
+    {char:'КО',lower:'ко',translit:'КО',meaning:'КО-шка 🐱',    type:'слог',num:12,tags:['word']},
+    {char:'СО',lower:'со',translit:'СО',meaning:'СОК 🧃',       type:'слог',num:13,tags:['word']},
+    {char:'НО',lower:'но',translit:'НО',meaning:'НОС 👃',       type:'слог',num:14,tags:['word']},
+    {char:'ТИ',lower:'ти',translit:'ТИ',meaning:'ТИ-гр 🐯',    type:'слог',num:15,tags:['word']},
+  ],
+
+  words_easy: [
+    {char:'ДА',   lower:'да',   translit:'ДА',   meaning:'да — yes ✅',        type:'слово',num:1, tags:['word']},
+    {char:'НЕТ',  lower:'нет',  translit:'НЕТ',  meaning:'нет — no ❌',        type:'слово',num:2, tags:['word']},
+    {char:'КОТ',  lower:'кот',  translit:'КОТ',  meaning:'кот — cat 🐱',       type:'слово',num:3, tags:['word']},
+    {char:'ДОМ',  lower:'дом',  translit:'ДОМ',  meaning:'дом — house 🏠',     type:'слово',num:4, tags:['word']},
+    {char:'МЯЧ',  lower:'мяч',  translit:'МЯЧ',  meaning:'мяч — ball ⚽',      type:'слово',num:5, tags:['word']},
+    {char:'СОК',  lower:'сок',  translit:'СОК',  meaning:'сок — juice 🧃',     type:'слово',num:6, tags:['word']},
+    {char:'РОТ',  lower:'рот',  translit:'РОТ',  meaning:'рот — mouth 👄',     type:'слово',num:7, tags:['word']},
+    {char:'НОС',  lower:'нос',  translit:'НОС',  meaning:'нос — nose 👃',      type:'слово',num:8, tags:['word']},
+    {char:'ЛЕС',  lower:'лес',  translit:'ЛЕС',  meaning:'лес — forest 🌲',    type:'слово',num:9, tags:['word']},
+    {char:'КАША', lower:'каша', translit:'КАША', meaning:'каша — porridge 🥣', type:'слово',num:10,tags:['word']},
+    {char:'ВОДА', lower:'вода', translit:'ВОДА', meaning:'вода — water 💧',    type:'слово',num:11,tags:['word']},
+    {char:'МАМА', lower:'мама', translit:'МАМА', meaning:'мама — mom 👩',      type:'слово',num:12,tags:['word']},
+    {char:'ПАПА', lower:'папа', translit:'ПАПА', meaning:'папа — dad 👨',      type:'слово',num:13,tags:['word']},
+    {char:'МОЛОКО',lower:'молоко',translit:'МОЛОКО',meaning:'молоко — milk 🥛',type:'слово',num:14,tags:['word']},
+    {char:'ХЛЕБ', lower:'хлеб', translit:'ХЛЕБ', meaning:'хлеб — bread 🍞',   type:'слово',num:15,tags:['word']},
+  ],
+
+  words_animals: [
+    {char:'КОТ',    lower:'кот',    translit:'КОТ',    meaning:'кот — cat 🐱',        type:'животное',num:1, tags:['word']},
+    {char:'ПЁС',    lower:'пёс',    translit:'ПЁС',    meaning:'пёс — dog 🐶',        type:'животное',num:2, tags:['word']},
+    {char:'ЛИСА',   lower:'лиса',   translit:'ЛИСА',   meaning:'лиса — fox 🦊',       type:'животное',num:3, tags:['word']},
+    {char:'ВОЛК',   lower:'волк',   translit:'ВОЛК',   meaning:'волк — wolf 🐺',      type:'животное',num:4, tags:['word']},
+    {char:'МЕДВЕДЬ',lower:'медведь',translit:'МЕДВЕДЬ',meaning:'медведь — bear 🐻',   type:'животное',num:5, tags:['word']},
+    {char:'СЛОН',   lower:'слон',   translit:'СЛОН',   meaning:'слон — elephant 🐘',  type:'животное',num:6, tags:['word']},
+    {char:'ТИГР',   lower:'тигр',   translit:'ТИГР',   meaning:'тигр — tiger 🐯',     type:'животное',num:7, tags:['word']},
+    {char:'ЗЕБРА',  lower:'зебра',  translit:'ЗЕБРА',  meaning:'зебра — zebra 🦓',    type:'животное',num:8, tags:['word']},
+    {char:'УТКА',   lower:'утка',   translit:'УТКА',   meaning:'утка — duck 🦆',      type:'животное',num:9, tags:['word']},
+    {char:'РЫБА',   lower:'рыба',   translit:'РЫБА',   meaning:'рыба — fish 🐟',      type:'животное',num:10,tags:['word']},
+    {char:'КРОЛИК', lower:'кролик', translit:'КРОЛИК', meaning:'кролик — rabbit 🐰',  type:'животное',num:11,tags:['word']},
+    {char:'ЖИРАФ',  lower:'жираф',  translit:'ЖИРАФ',  meaning:'жираф — giraffe 🦒',  type:'животное',num:12,tags:['word']},
+    {char:'ЧЕРЕПАХА',lower:'черепаха',translit:'ЧЕРЕПАХА',meaning:'черепаха — turtle 🐢',type:'животное',num:13,tags:['word']},
+    {char:'ЁЖИК',   lower:'ёжик',   translit:'ЁЖИК',   meaning:'ёжик — hedgehog 🦔',  type:'животное',num:14,tags:['word']},
+    {char:'ПЕТУХ',  lower:'петух',  translit:'ПЕТУХ',  meaning:'петух — rooster 🐓',  type:'животное',num:15,tags:['word']},
+  ],
+
+  words_family: [
+    {char:'МАМА',   lower:'мама',  translit:'МАМА',   meaning:'мама — mom 👩',          type:'семья',num:1,tags:['word']},
+    {char:'ПАПА',   lower:'папа',  translit:'ПАПА',   meaning:'папа — dad 👨',          type:'семья',num:2,tags:['word']},
+    {char:'БАБУШКА',lower:'бабушка',translit:'БАБУШКА',meaning:'бабушка — grandma 👵', type:'семья',num:3,tags:['word']},
+    {char:'ДЕДУШКА',lower:'дедушка',translit:'ДЕДУШКА',meaning:'дедушка — grandpa 👴', type:'семья',num:4,tags:['word']},
+    {char:'СЕСТРА', lower:'сестра',translit:'СЕСТРА', meaning:'сестра — sister 👧',     type:'семья',num:5,tags:['word']},
+    {char:'БРАТ',   lower:'брат',  translit:'БРАТ',   meaning:'брат — brother 👦',      type:'семья',num:6,tags:['word']},
+    {char:'СЕМЬЯ',  lower:'семья', translit:'СЕМЬЯ',  meaning:'семья — family 👨‍👩‍👧',     type:'семья',num:7,tags:['word']},
+    {char:'ТЁТЯ',   lower:'тётя',  translit:'ТЁТЯ',   meaning:'тётя — aunt 👩',         type:'семья',num:8,tags:['word']},
+    {char:'ДЯДЯ',   lower:'дядя',  translit:'ДЯДЯ',   meaning:'дядя — uncle 👨',        type:'семья',num:9,tags:['word']},
+  ],
+
+  words_colors: [
+    {char:'КРАСНЫЙ', lower:'красный', translit:'КРАСНЫЙ', meaning:'красный — red 🔴',       type:'цвет',num:1,tags:['word']},
+    {char:'СИНИЙ',   lower:'синий',   translit:'СИНИЙ',   meaning:'синий — blue 🔵',         type:'цвет',num:2,tags:['word']},
+    {char:'ЗЕЛЁНЫЙ', lower:'зелёный', translit:'ЗЕЛЁНЫЙ', meaning:'зелёный — green 🟢',      type:'цвет',num:3,tags:['word']},
+    {char:'ЖЁЛТЫЙ',  lower:'жёлтый',  translit:'ЖЁЛТЫЙ',  meaning:'жёлтый — yellow 🟡',      type:'цвет',num:4,tags:['word']},
+    {char:'БЕЛЫЙ',   lower:'белый',   translit:'БЕЛЫЙ',   meaning:'белый — white ⚪',         type:'цвет',num:5,tags:['word']},
+    {char:'ЧЁРНЫЙ',  lower:'чёрный',  translit:'ЧЁРНЫЙ',  meaning:'чёрный — black ⚫',        type:'цвет',num:6,tags:['word']},
+    {char:'РОЗОВЫЙ', lower:'розовый', translit:'РОЗОВЫЙ', meaning:'розовый — pink 🩷',        type:'цвет',num:7,tags:['word']},
+    {char:'ОРАНЖЕВЫЙ',lower:'оранжевый',translit:'ОРАНЖЕВЫЙ',meaning:'оранжевый — orange 🟠',type:'цвет',num:8,tags:['word']},
+    {char:'ФИОЛЕТОВЫЙ',lower:'фиолетовый',translit:'ФИОЛЕТОВЫЙ',meaning:'фиолетовый — purple 🟣',type:'цвет',num:9,tags:['word']},
+  ],
+
+  words_food: [
+    {char:'ЯБЛОКО',lower:'яблоко',translit:'ЯБЛОКО',meaning:'яблоко — apple 🍎',      type:'еда',num:1, tags:['word']},
+    {char:'БАНАН', lower:'банан', translit:'БАНАН', meaning:'банан — banana 🍌',       type:'еда',num:2, tags:['word']},
+    {char:'МОЛОКО',lower:'молоко',translit:'МОЛОКО',meaning:'молоко — milk 🥛',       type:'еда',num:3, tags:['word']},
+    {char:'ХЛЕБ',  lower:'хлеб',  translit:'ХЛЕБ',  meaning:'хлеб — bread 🍞',        type:'еда',num:4, tags:['word']},
+    {char:'СУП',   lower:'суп',   translit:'СУП',   meaning:'суп — soup 🍲',          type:'еда',num:5, tags:['word']},
+    {char:'КАША',  lower:'каша',  translit:'КАША',  meaning:'каша — porridge 🥣',     type:'еда',num:6, tags:['word']},
+    {char:'ТОРТ',  lower:'торт',  translit:'ТОРТ',  meaning:'торт — cake 🎂',         type:'еда',num:7, tags:['word']},
+    {char:'МЁД',   lower:'мёд',   translit:'МЁД',   meaning:'мёд — honey 🍯',         type:'еда',num:8, tags:['word']},
+    {char:'ЧАЙ',   lower:'чай',   translit:'ЧАЙ',   meaning:'чай — tea ☕',           type:'еда',num:9, tags:['word']},
+    {char:'СОК',   lower:'сок',   translit:'СОК',   meaning:'сок — juice 🧃',         type:'еда',num:10,tags:['word']},
+    {char:'КОНФЕТА',lower:'конфета',translit:'КОНФЕТА',meaning:'конфета — candy 🍬',  type:'еда',num:11,tags:['word']},
+    {char:'МОРОЖЕНОЕ',lower:'мороженое',translit:'МОРОЖЕНОЕ',meaning:'мороженое — ice cream 🍦',type:'еда',num:12,tags:['word']},
+  ],
+
+  words_body: [
+    {char:'НОС',   lower:'нос',  translit:'НОС',   meaning:'нос — nose 👃',        type:'тело',num:1, tags:['word']},
+    {char:'РОТ',   lower:'рот',  translit:'РОТ',   meaning:'рот — mouth 👄',       type:'тело',num:2, tags:['word']},
+    {char:'УХО',   lower:'ухо',  translit:'УХО',   meaning:'ухо — ear 👂',         type:'тело',num:3, tags:['word']},
+    {char:'ГЛАЗ',  lower:'глаз', translit:'ГЛАЗ',  meaning:'глаз — eye 👁️',        type:'тело',num:4, tags:['word']},
+    {char:'РУКА',  lower:'рука', translit:'РУКА',  meaning:'рука — hand ✋',        type:'тело',num:5, tags:['word']},
+    {char:'НОГА',  lower:'нога', translit:'НОГА',  meaning:'нога — leg 🦵',        type:'тело',num:6, tags:['word']},
+    {char:'ГОЛОВА',lower:'голова',translit:'ГОЛОВА',meaning:'голова — head 🗣️',    type:'тело',num:7, tags:['word']},
+    {char:'ЖИВОТ', lower:'живот',translit:'ЖИВОТ', meaning:'живот — belly 🫃',     type:'тело',num:8, tags:['word']},
+    {char:'СПИНА', lower:'спина',translit:'СПИНА', meaning:'спина — back 🔙',      type:'тело',num:9, tags:['word']},
+    {char:'ЗУБЫ',  lower:'зубы', translit:'ЗУБЫ',  meaning:'зубы — teeth 🦷',      type:'тело',num:10,tags:['word']},
+    {char:'ВОЛОСЫ',lower:'волосы',translit:'ВОЛОСЫ',meaning:'волосы — hair 💇',   type:'тело',num:11,tags:['word']},
+  ],
+
+  words_nature: [
+    {char:'СОЛНЦЕ',lower:'солнце',translit:'СОЛНЦЕ',meaning:'солнце — sun ☀️',     type:'природа',num:1, tags:['word']},
+    {char:'ЛУНА',  lower:'луна',  translit:'ЛУНА',  meaning:'луна — moon 🌙',      type:'природа',num:2, tags:['word']},
+    {char:'ЗВЕЗДА',lower:'звезда',translit:'ЗВЕЗДА',meaning:'звезда — star ⭐',    type:'природа',num:3, tags:['word']},
+    {char:'ДЕРЕВО',lower:'дерево',translit:'ДЕРЕВО',meaning:'дерево — tree 🌳',   type:'природа',num:4, tags:['word']},
+    {char:'ЦВЕТОК',lower:'цветок',translit:'ЦВЕТОК',meaning:'цветок — flower 🌸', type:'природа',num:5, tags:['word']},
+    {char:'ВОДА',  lower:'вода',  translit:'ВОДА',  meaning:'вода — water 💧',    type:'природа',num:6, tags:['word']},
+    {char:'ГОРА',  lower:'гора',  translit:'ГОРА',  meaning:'гора — mountain ⛰️', type:'природа',num:7, tags:['word']},
+    {char:'СНЕГ',  lower:'снег',  translit:'СНЕГ',  meaning:'снег — snow ❄️',     type:'природа',num:8, tags:['word']},
+    {char:'ДОЖДЬ', lower:'дождь', translit:'ДОЖДЬ', meaning:'дождь — rain 🌧️',    type:'природа',num:9, tags:['word']},
+    {char:'НЕБО',  lower:'небо',  translit:'НЕБО',  meaning:'небо — sky 🌤️',      type:'природа',num:10,tags:['word']},
+    {char:'МОРЕ',  lower:'море',  translit:'МОРЕ',  meaning:'море — sea 🌊',      type:'природа',num:11,tags:['word']},
+    {char:'РЕКА',  lower:'река',  translit:'РЕКА',  meaning:'река — river 🏞️',    type:'природа',num:12,tags:['word']},
+  ],
+
+  words_toys: [
+    {char:'МЯЧ',    lower:'мяч',    translit:'МЯЧ',    meaning:'мяч — ball ⚽',          type:'игра',num:1, tags:['word']},
+    {char:'КУКЛА',  lower:'кукла',  translit:'КУКЛА',  meaning:'кукла — doll 🪆',        type:'игра',num:2, tags:['word']},
+    {char:'МИШКА',  lower:'мишка',  translit:'МИШКА',  meaning:'мишка — teddy bear 🐻', type:'игра',num:3, tags:['word']},
+    {char:'КУБИК',  lower:'кубик',  translit:'КУБИК',  meaning:'кубик — block 🧊',       type:'игра',num:4, tags:['word']},
+    {char:'МАШИНА', lower:'машина', translit:'МАШИНА', meaning:'машина — car 🚗',        type:'игра',num:5, tags:['word']},
+    {char:'ПОЕЗД',  lower:'поезд',  translit:'ПОЕЗД',  meaning:'поезд — train 🚂',       type:'игра',num:6, tags:['word']},
+    {char:'САМОЛЁТ',lower:'самолёт',translit:'САМОЛЁТ',meaning:'самолёт — airplane ✈️',  type:'игра',num:7, tags:['word']},
+    {char:'КРАСКИ', lower:'краски', translit:'КРАСКИ', meaning:'краски — paints 🎨',     type:'игра',num:8, tags:['word']},
+    {char:'КНИГА',  lower:'книга',  translit:'КНИГА',  meaning:'книга — book 📚',        type:'игра',num:9, tags:['word']},
+    {char:'КАРАНДАШ',lower:'карандаш',translit:'КАРАНДАШ',meaning:'карандаш — pencil ✏️',type:'игра',num:10,tags:['word']},
+  ],
+};
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let currentLevel  = 'alphabet';
+let currentIdx    = 0;
+let strokes       = [];
+let currentStroke = null;
+let ghostOn = true;
+let gridOn  = true;
+let mastery = {};
+let sessionPracticed = new Set();
+let sessionMastered  = new Set();
+
+function getChars()    { return DB[currentLevel] || []; }
+function currentChar() { return getChars()[currentIdx]; }
+
+// ══════════════════════════════════════════
+//  CANVAS
+// ══════════════════════════════════════════
+const canvas = document.getElementById('drawCanvas');
+const ctx    = canvas.getContext('2d');
+const wrap   = document.getElementById('canvasWrap');
+const ghost  = document.getElementById('ghostEl');
+
+function resizeCanvas() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const cellSize = Math.min(Math.floor(Math.min(vw - 450, vh - 195)), 340);
+  const cell = Math.max(cellSize, 185);
+
+  const item    = currentChar();
+  const charLen = item ? [...item.char].length : 1;
+  const cols    = Math.min(charLen, 5);
+  const rows    = Math.ceil(charLen / 5);
+  const W = cell * cols;
+  const H = cell * rows;
+
+  wrap.style.width  = W + 'px';
+  wrap.style.height = H + 'px';
+  canvas.width  = W;
+  canvas.height = H;
+
+  ghost.style.fontSize      = (cell * 0.68) + 'px';
+  ghost.style.lineHeight    = '1';
+  ghost.style.letterSpacing = '0.02em';
+  ghost.style.flexWrap      = 'wrap';
+  ghost.style.whiteSpace    = rows > 1 ? 'normal' : 'nowrap';
+
+  drawGridSvg(W, H, cell);
+  redraw();
+}
+
+function drawGridSvg(W, H, cell) {
+  const svg  = document.getElementById('gridSvg');
+  const cols = Math.round(W / cell);
+  const rows = Math.round(H / cell);
+  let html = '';
+
+  for (let col = 0; col < cols; col++) {
+    for (let row = 0; row < rows; row++) {
+      const ox   = col * cell;
+      const oy   = row * cell;
+      const step = cell / 4;
+
+      for (let x = step; x < cell; x += step)
+        html += `<line x1="${ox+x}" y1="${oy}" x2="${ox+x}" y2="${oy+cell}" stroke="rgba(74,179,244,0.09)" stroke-width="0.5"/>`;
+      for (let y = step; y < cell; y += step)
+        html += `<line x1="${ox}" y1="${oy+y}" x2="${ox+cell}" y2="${oy+y}" stroke="rgba(74,179,244,0.09)" stroke-width="0.5"/>`;
+
+      html += `<line x1="${ox+cell/2}" y1="${oy}" x2="${ox+cell/2}" y2="${oy+cell}" stroke="rgba(179,136,255,0.22)" stroke-width="1"/>`;
+      html += `<line x1="${ox}" y1="${oy+cell/2}" x2="${ox+cell}" y2="${oy+cell/2}" stroke="rgba(179,136,255,0.22)" stroke-width="1"/>`;
+      html += `<line x1="${ox}" y1="${oy}" x2="${ox+cell}" y2="${oy+cell}" stroke="rgba(74,179,244,0.07)" stroke-width="0.5"/>`;
+      html += `<line x1="${ox+cell}" y1="${oy}" x2="${ox}" y2="${oy+cell}" stroke="rgba(74,179,244,0.07)" stroke-width="0.5"/>`;
+      html += `<rect x="${ox+0.5}" y="${oy+0.5}" width="${cell-1}" height="${cell-1}" fill="none" stroke="rgba(74,179,244,0.25)" stroke-width="1"/>`;
+    }
+  }
+  html += `<rect x="1" y="1" width="${W-2}" height="${H-2}" fill="none" stroke="rgba(179,136,255,0.4)" stroke-width="1.5"/>`;
+  svg.innerHTML = html;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.display = gridOn ? '' : 'none';
+}
+
+function getPos(e) {
+  const rect   = canvas.getBoundingClientRect();
+  const scaleX = canvas.width  / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const src    = e.touches ? e.touches[0] : e;
+  return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+}
+
+canvas.addEventListener('mousedown', e => { e.preventDefault(); currentStroke = [getPos(e)]; });
+canvas.addEventListener('mousemove', e => {
+  if (!currentStroke) return;
+  currentStroke.push(getPos(e));
+  redraw(); drawStroke(currentStroke, getBrush());
+});
+canvas.addEventListener('mouseup',    endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); currentStroke = [getPos(e)]; }, { passive: false });
+canvas.addEventListener('touchmove',  e => {
+  e.preventDefault();
+  if (!currentStroke) return;
+  currentStroke.push(getPos(e));
+  redraw(); drawStroke(currentStroke, getBrush());
+}, { passive: false });
+canvas.addEventListener('touchend', endDraw);
+
+function endDraw() {
+  if (!currentStroke || currentStroke.length < 1) return;
+  strokes.push({ points: currentStroke, size: getBrush() });
+  currentStroke = null;
+  sessionPracticed.add(currentChar().char);
+  document.getElementById('sessionCount').textContent = sessionPracticed.size;
+  redraw();
+}
+
+function getBrush() { return parseInt(document.getElementById('brushSize').value); }
+
+function drawStroke(pts, size) {
+  if (!pts || pts.length === 0) return;
+  ctx.save();
+  ctx.strokeStyle = '#2d2d6b';
+  ctx.lineWidth   = size;
+  ctx.lineCap     = 'round';
+  ctx.lineJoin    = 'round';
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const s of strokes) drawStroke(s.points, s.size);
+}
+function clearCanvas() { strokes = []; currentStroke = null; redraw(); }
+
+// ══════════════════════════════════════════
+//  UI UPDATE
+// ══════════════════════════════════════════
+function updateUI() {
+  const item = currentChar();
+  if (!item) return;
+  const c = item.char;
+
+  resizeCanvas();
+  updateYTPanel();
+
+  // Animate ref char
+  const refEl = document.getElementById('refChar');
+  refEl.style.animation = 'none';
+  refEl.offsetHeight;
+  refEl.style.animation = '';
+
+  // Show uppercase + lowercase for single letters
+  const clen = [...c].length;
+  if (clen === 1 && item.lower && item.lower !== c) {
+    refEl.innerHTML = `<div class="both-cases"><span class="case-upper">${c}</span><span class="case-lower">${item.lower}</span></div>`;
+    refEl.style.fontSize = '';
+  } else {
+    const baseFs = clen <= 1 ? 115 : clen <= 2 ? 66 : clen <= 3 ? 46 : clen <= 4 ? 36 : clen <= 6 ? 26 : clen <= 8 ? 20 : 15;
+    refEl.textContent = c;
+    refEl.style.fontSize     = baseFs + 'px';
+    refEl.style.letterSpacing = clen > 1 ? '0.04em' : '';
+  }
+
+  document.getElementById('refTranslit').textContent = item.translit || '';
+  document.getElementById('refMeaning').textContent  = item.meaning  || '';
+
+  // Badges
+  const badgeEl = document.getElementById('letterBadges');
+  badgeEl.innerHTML = '';
+  const labelMap = { vowel:'гласная', consonant:'согласная', special:'знак', number:'цифра', word:'слово' };
+  (item.tags || []).forEach(t => {
+    const b = document.createElement('span');
+    b.className = 'badge ' + t;
+    b.textContent = labelMap[t] || t;
+    badgeEl.appendChild(b);
+  });
+
+  ghost.textContent = ghostOn ? c : '';
+
+  // Right panel
+  const rpChar = document.getElementById('rpChar');
+  if (clen === 1 && item.lower && item.lower !== c) {
+    rpChar.innerHTML = `<div style="display:flex;gap:0.1em;align-items:baseline;justify-content:center;line-height:1"><span style="font-size:2.8rem">${c}</span><span style="font-size:1.9rem;color:var(--blue)">${item.lower}</span></div>`;
+    rpChar.style.fontSize = '';
+  } else {
+    const rpFs = clen <= 2 ? '3rem' : clen <= 4 ? '1.6rem' : clen <= 6 ? '1.1rem' : '0.85rem';
+    rpChar.textContent = c;
+    rpChar.style.fontSize = rpFs;
+  }
+
+  document.getElementById('rpTranslit').textContent = item.translit || '';
+  document.getElementById('rpType').textContent     = item.type     || '';
+  document.getElementById('rpNum').textContent      = item.num      || '-';
+  document.getElementById('rpMeaning').textContent  = item.meaning  || '';
+
+  const m   = mastery[c] || 0;
+  const pct = Math.round(m / 3 * 100);
+  document.getElementById('masteryPct').textContent  = pct + '%';
+  document.getElementById('masteryFill').style.width = pct + '%';
+
+  const total = getChars().length;
+  const done  = Object.keys(mastery).filter(k => mastery[k] >= 1 && getChars().some(x => x.char === k)).length;
+  document.getElementById('progressTxt').textContent = `${done}/${total} изучено`;
+
+  document.querySelectorAll('.cpill').forEach((el, i) => el.classList.toggle('active', i === currentIdx));
+  const active = document.querySelector('.cpill.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+function buildGrid(chars) {
+  const grid = document.getElementById('charGrid');
+  grid.innerHTML = '';
+  chars.forEach((item, i) => {
+    const pill = document.createElement('div');
+    pill.className = 'cpill' + (i === currentIdx ? ' active' : '') + (mastery[item.char] ? ' done' : '');
+    const displayChars = [...item.char];
+    pill.textContent = displayChars.slice(0, 3).join('');
+    if (displayChars.length > 3) pill.style.fontSize = '0.65rem';
+    else if (displayChars.length > 1) pill.style.fontSize = '0.78rem';
+    pill.title = item.translit + ' — ' + item.meaning;
+    pill.addEventListener('click', () => { currentIdx = i; clearCanvas(); updateUI(); });
+    grid.appendChild(pill);
+  });
+}
+
+// ══════════════════════════════════════════
+//  CONTROLS
+// ══════════════════════════════════════════
+document.getElementById('levelSelect').addEventListener('change', function() {
+  currentLevel = this.value;
+  currentIdx   = 0;
+  clearCanvas();
+  buildGrid(getChars());
+  updateUI();
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx - 1 + getChars().length) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('nextCharBtn').addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % getChars().length;
+  clearCanvas(); updateUI();
+});
+document.getElementById('randBtn').addEventListener('click', () => {
+  currentIdx = Math.floor(Math.random() * getChars().length);
+  clearCanvas(); updateUI();
+});
+document.getElementById('clearBtn').addEventListener('click',  clearCanvas);
+document.getElementById('clearBtn2').addEventListener('click', clearCanvas);
+document.getElementById('undoBtn').addEventListener('click',   () => { strokes.pop(); redraw(); });
+document.getElementById('undoBtn2').addEventListener('click',  () => { strokes.pop(); redraw(); });
+document.getElementById('brushSize').addEventListener('input', function() {
+  document.getElementById('brushVal').textContent = this.value;
+});
+document.getElementById('ghostBtn').addEventListener('click', function() {
+  ghostOn = !ghostOn;
+  this.textContent = '👻 Призрак ' + (ghostOn ? 'ВКЛ' : 'ВЫКЛ');
+  updateUI();
+});
+document.getElementById('gridBtn').addEventListener('click', function() {
+  gridOn = !gridOn;
+  this.textContent = '⊞ Сетка ' + (gridOn ? 'ВКЛ' : 'ВЫКЛ');
+  resizeCanvas();
+});
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { buildGrid(getChars()); return; }
+  const filtered = getChars().filter(item =>
+    item.char.toLowerCase().includes(q) ||
+    (item.translit || '').toLowerCase().includes(q) ||
+    (item.meaning  || '').toLowerCase().includes(q)
+  );
+  buildGrid(filtered);
+});
+
+function markChar(level) {
+  const c = currentChar().char;
+  mastery[c] = level;
+  if (level >= 2) {
+    sessionMastered.add(c);
+    document.getElementById('masteredCount').textContent = sessionMastered.size;
+  }
+  const pills = document.querySelectorAll('.cpill');
+  if (pills[currentIdx]) pills[currentIdx].classList.toggle('done', level > 0);
+  updateUI();
+  if (level === 3) {
+    setTimeout(() => { currentIdx = (currentIdx + 1) % getChars().length; clearCanvas(); updateUI(); }, 420);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === 'n') { currentIdx = (currentIdx+1)%getChars().length; clearCanvas(); updateUI(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'p') { currentIdx = (currentIdx-1+getChars().length)%getChars().length; clearCanvas(); updateUI(); }
+  if (e.key === 'c' || e.key === 'Delete') clearCanvas();
+  if (e.key === 'z' && (e.ctrlKey || e.metaKey)) { strokes.pop(); redraw(); }
+  if (e.key === 'g') { ghostOn = !ghostOn; document.getElementById('ghostBtn').textContent = '👻 Призрак ' + (ghostOn ? 'ВКЛ' : 'ВЫКЛ'); updateUI(); }
+  if (e.key === '1') markChar(1);
+  if (e.key === '2') markChar(2);
+  if (e.key === '3') markChar(3);
+});
+
+// ══════════════════════════════════════════
+//  YOUTUBE
+// ══════════════════════════════════════════
+function getYTSearchUrl(char, mode) {
+  const q = mode === 'sound'
+    ? encodeURIComponent(`буква ${char} произношение русский алфавит для детей`)
+    : encodeURIComponent(`буква ${char} как писать прописью для детей урок`);
+  return 'https://www.youtube.com/results?search_query=' + q;
+}
+
+function updateYTPanel() {
+  const item = currentChar();
+  if (!item) return;
+  const char = item.char;
+  document.getElementById('ytCharLabel').textContent       = char;
+  document.getElementById('ytPlaceholderChar').textContent = char;
+  document.getElementById('ytPlaceholderText').textContent = `Поиск видео: ${char}`;
+  document.getElementById('ytLink1').href = getYTSearchUrl(char, 'write');
+  document.getElementById('ytLink2').href = getYTSearchUrl(char, 'sound');
+  document.getElementById('ytLink3').href = getYTSearchUrl(char, 'write');
+
+  const embedWrap = document.getElementById('ytEmbedWrap');
+  const old = embedWrap.querySelector('iframe');
+  if (old) old.remove();
+  document.getElementById('ytPlaceholder').style.display = 'flex';
+  document.getElementById('ytPlaceholder').onclick = () => window.open(getYTSearchUrl(char, 'write'), '_blank');
+}
+
+['ytLink1','ytLink2','ytLink3'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    e.preventDefault();
+    window.open(document.getElementById(id).href, '_blank');
+  });
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+buildGrid(getChars());
+updateUI();
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+</script>
+</body>
+</html>
